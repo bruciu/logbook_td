@@ -8,6 +8,7 @@ fitfun = fittype(f);
 X0 = [0.35, 0, 2, 1.5 * 10^4];
 [fitted_curve, gof] = fit(x, y, fitfun, "StartPoint", X0);
 coeffvals = coeffvalues(fitted_curve);
+fprintf("periodo = %f\n", 2 * pi / coeffvals(4));
 
 scatter(x, y, "+")
 hold on;
