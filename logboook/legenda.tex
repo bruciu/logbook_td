@@ -1,0 +1,29 @@
+\colorbox{yellow}{Questo è per le cose che importanti, da evidenziare}
+
+\colorbox{red}{Questo è per avvertimenti}
+
+\colorbox{pink}{Questo è per note da tenere presente}
+
+\textbackslash{semplicemente risiolve la vita}
+
+\sout{testo da cancellare}
+
+\boxed{\text{testo in box}}
+
+\makeatletter
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+\makeatother
+
+
+

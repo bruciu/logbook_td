@@ -1,0 +1,168 @@
+% sono presi da paolini
+% https://github.com/paolini/AnalisiUno/blob/master/AnalisiUno.tex
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\loc}{\mathit{loc}}
+\newcommand{\weakto}{\rightharpoonup}
+\newcommand{\implied}{\Longleftarrow}
+\let\subsetstrict\subset
+\renewcommand{\subset}{\subseteq}
+\renewcommand{\supset}{\supseteq}
+
+% calligraphic letters
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\FL}{\mathcal F\!\mathcal L}
+\renewcommand{\H}{\mathcal H}
+\newcommand{\K}{\mathcal K}
+\renewcommand{\L}{\mathcal L}
+\newcommand{\M}{\mathcal M}
+\renewcommand{\P}{\mathcal P}
+\renewcommand{\S}{\mathcal S}
+\newcommand{\U}{\mathcal U} %% intorni
+
+% blackboard letters
+\newcommand{\CC}{\mathbb C}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\KK}{\mathbb K}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\TT}{\mathbb T}
+\newcommand{\ZZ}{\mathbb Z}
+
+\newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
+\newcommand{\enclose}[1]{{\left( #1 \right)}}
+\newcommand{\Enclose}[1]{{\left[ #1 \right]}}
+\newcommand{\ENCLOSE}[1]{{\left\{ #1 \right\}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\newcommand{\To}{\rightrightarrows}
+\renewcommand{\vec}[1]{\boldsymbol #1}
+\newcommand{\defeq}{:=}
+\DeclareMathOperator{\divergence}{div}
+\renewcommand{\div}{\divergence}
+% \DeclareMathOperator{\ker}{ker}  %% already defined
+\DeclareMathOperator{\Imaginarypart}{Im}
+\renewcommand{\Im}{\Imaginarypart}
+\DeclareMathOperator{\Realpart}{Re}
+\renewcommand{\Re}{\Realpart}
+%\DeclareMathOperator{\arg}{arg}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\tgh}{tgh}
+\DeclareMathOperator{\settsinh}{settsinh}
+\DeclareMathOperator{\settcosh}{settcosh}
+\DeclareMathOperator{\setttgh}{setttgh}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\diag}{diag}
+
+
+% ================================================================
+%                         NOSTRI COMANDI
+% ================================================================
+
+% cambia il nome del titolo (non serve piò)
+\addto\captionsitalian{
+   \renewcommand\chaptername{LogBook n.} 
+}
+
+\newcommand{\giornocorrente}{00/00/00}
+
+% crea una linea di separazione (es: \LogMark{Nuova parte}{24/09/2020}{10:10})
+\newcommand{\LogMark}[2]
+{
+    %\vspace{0.5cm}
+    \subsection*{#1}
+    \vspace{-0.3cm}
+
+    \reversemarginpar
+    \marginnote
+    {
+        \textcolor{gray}{\giornocorrente} \\
+        \textcolor{gray}{#2}
+    }%[0.3cm]
+    \normalmarginpar
+    
+    % disegna una linea orizzontale
+    \noindent\rule{\textwidth}{0.5pt}
+}
+
+\newcommand{\NewDay}[2]
+{
+    \renewcommand{\giornocorrente}{#2}
+
+	\section*{#1 \qquad #2}
+	
+	\vspace{-0.5cm}
+	
+	\noindent\textcolor{red}{\rule{\textwidth}{1pt}} % Thick horizontal rule
+	
+	\vspace{2pt}\vspace{-\baselineskip} % Whitespace between rules
+	
+	\noindent\textcolor{red}{\rule{\textwidth}{0.4pt}} % Thin horizontal rule
+	
+	%\vspace{-0.5cm}
+}
+
+\newcommand{\Orario}[1]
+{
+    \reversemarginpar
+    \marginnote
+    {
+        \textcolor{gray}{#1}
+    }
+    \normalmarginpar
+}
+
+\newcommand{\NewSection}[1]
+{
+    \vspace{1cm}
+    \section{#1}
+}
+
+% ================================
+%          RIQUADRI
+% ================================
+%textmarker style from colorbox doc
+\tcbset{textmarker/.style={%
+        enhanced,
+        parbox=false,boxrule=0mm,boxsep=0mm,arc=0mm,
+        outer arc=0mm,left=6mm,right=3mm,top=7pt,bottom=7pt,
+        toptitle=1mm,bottomtitle=1mm,oversize}}
+% define new colorboxes
+\newtcolorbox{hintBox}{textmarker,
+    borderline west={6pt}{0pt}{yellow},
+    colback=yellow!10!white}
+\newtcolorbox{importantBox}{textmarker,
+    borderline west={6pt}{0pt}{red},
+    colback=red!10!white}
+\newtcolorbox{noteBox}{textmarker,
+    borderline west={6pt}{0pt}{green},
+    colback=green!10!white}
+\newtcolorbox{todoBox}{textmarker,
+    borderline west={6pt}{0pt}{violet},
+    colback=violet!10!white}
+
+% define commands for easy access
+
+% NOTA
+\newcommand{\Nota}[1]{\begin{noteBox} \textbf{Nota:\quad} #1 \end{noteBox}}
+
+% AVVERTIMENTO
+\newcommand{\Avvertimento}[1]{\begin{hintBox} \textbf{Avvertimento:\quad} #1 \end{hintBox}}
+
+% IMPOTANTE
+\newcommand{\Importante}[1]{\begin{importantBox} \textbf{Importante:\quad} #1 \end{importantBox}}
+
+% TODO
+\newcommand{\TODO}[1]{\begin{todoBox} \textbf{TODO:\quad} #1 \end{todoBox}}

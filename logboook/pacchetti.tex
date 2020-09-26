@@ -1,0 +1,67 @@
+% ================================================================
+%                          DOCUMENTO
+% ================================================================
+
+%\documentclass{scrbook}
+%\documentclass[openany]{report}
+\documentclass[a4paper, 11pt, oneside, openary]{book} % A4 paper size, default 11pt font size and oneside for equal margins
+%\documentclass{memoir}
+
+\raggedbottom %evita che LateX aggiunga da solo dello sèpazio aggiuntivo per ragioni tipografiche
+
+% ================================================================
+%                          PACCHETTI
+% ================================================================
+
+\usepackage[utf8]{inputenc}            % lettere accentate da tastiera
+\usepackage[T1]{fontenc}               % codifica dei font
+\usepackage[english, italian]{babel}   % lingua del documento
+\usepackage{url}                       % per scrivere gli indirizzi Internet
+\usepackage{lipsum}                    % genera testo fittizio
+\usepackage{marginnote}                % per le note a margine (es date)
+\usepackage[marginparsep=0.8cm]{geometry}                  % per decidere le dimensioni e margini
+\usepackage[most]{tcolorbox}           % questo per i riquadri
+%\geometry{marginparsep=5cm}
+%\geometry{a4paper,top=3cm,bottom=3cm,left=3.5cm,right=3.5cm, heightrounded,bindingoffset=5mm}
+\usepackage{hyperref}                  % link
+\usepackage{float}                     % posizione figure
+\usepackage{wrapfig}
+
+% dare una spiegazione
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% ??
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+
+% glossario
+\usepackage{makeidx}
+
+% ??
+\usepackage{mathtools} % per \MoveEqLeft
+
+% QR-code
+\usepackage{qrcode}
+
+\usepackage{array} % per formattare le colonne di un tabular
+
+% disegni (non ho idea di cosa sia questa roba)
+\usepackage{tikz}
+\usetikzlibrary{calc,angles,positioning,intersections,quotes,decorations.markings}
+\usetikzlibrary{cd,calc,backgrounds} % commutative diagrams
+%\usepackage{tkz-euclide}
+%\usetkzobj{all}
+
+
+%\usepackage[svgnames]{xcolor} % Required for colour specification
+
+%\usepackage{fouriernc} % Use the New Century Schoolbook font
+
+\usepackage{ulem} %questo per far sì che funzionino testi barrati e/o sottolineati
+
+\usepackage{collectbox}
+\usepackage{graphicx}% just for the example text
+
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+
+\hypersetup %crea i collegamenti ipertestuali all’interno del documento, rendendo cliccabili i riferimenti incrociati [DEVE ESSERE L'ULTIMO FRA I PACCHETTI INSERITI]
