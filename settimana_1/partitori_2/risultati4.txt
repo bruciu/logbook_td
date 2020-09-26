@@ -1,0 +1,25 @@
+fit step 0, chi2: 0.000127
+outliers = 0, threashold = 3.000000
+fit step 198, chi2: 0.000127
+outliers = 0, threashold = 3.000000
+fit step 198, chi2: 0.000127
+funzione di fit:
+def f(x, a, b) :
+    return a * x + b
+
+I parametri incogniti da fittare esano:  ('a', 'b')
+I parametri di partenza erano:  [0 0]
+- parametri ricavati:
+    a =  0.179403+/-0.000010
+    b =  -0.01339+/-0.00006
+- Correlazioni
+    Corr(a, b) = -0.01
+- covMatrix:
+[[ 1.00036287e-10 -3.85873635e-12]
+ [-3.85873635e-12  3.33789115e-09]]
+- absolute sigma:  False
+- ndof = 197    (199 - 2)
+- chi2 = 0.0
+- chi2 ridotto(chi2/ndof) = 0.0
+D:\LUCA\unipi\laboratorio_2\programmi_esame\lib\lab2.py:254: UserWarning: residui normalizzati attivi, non verranno plottate le bande di confidenza su residui
+  warnings.warn("residui normalizzati attivi, non verranno plottate le bande di confidenza su residui")
