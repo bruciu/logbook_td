@@ -1,0 +1,23 @@
+fit step 0, chi2: 0.000127
+outliers = 0, threashold = 3.000000
+fit step 198, chi2: 0.000127
+outliers = 0, threashold = 3.000000
+fit step 198, chi2: 0.000127
+funzione di fit:
+def f(x, a, b) :
+    return x / a + b
+
+I parametri incogniti da fittare esano:  ('a', 'b')
+I parametri di partenza erano:  [1 0]
+- parametri ricavati:
+    a =  5.57404+/-0.00031
+    b =  -0.01339+/-0.00006
+- Correlazioni
+    Corr(a, b) = 0.01
+- covMatrix:
+[[9.65693361e-08 1.19890818e-10]
+ [1.19890818e-10 3.33789111e-09]]
+- absolute sigma:  False
+- ndof = 197    (199 - 2)
+- chi2 = 0.0
+- chi2 ridotto(chi2/ndof) = 0.0
