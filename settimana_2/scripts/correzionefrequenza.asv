@@ -1,0 +1,13 @@
+clear all;
+[x,y,z] = leg_wavf3pars("../dati_seconda_settimana/cortocirc/acquis2.txt");
+%f_campionamento = 100 kHz: (commenta se vuoi usare l'altro)
+m = 0.0000313944;
+dm = 0.0000000185;
+%f_campionamento = 200 kHz: (commenta se vuoi usare l'altro)
+%m = 0.0000156965;
+%dm = 0.0000000029;
+z = z - m*x;
+zmax = 
+plot(x, z, '+');
+figure;
+plot(x, y, '+');
