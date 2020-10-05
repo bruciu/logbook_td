@@ -1,0 +1,107 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\LogMark{I prof non sentono}{9:00}
+E noi possiamo dire quello che ci pare. Non abbiamo installato TINA sigh. Non ho fatto in tempo a scrivere il link, non è che lo puoi scrivere qui? Ok niente, vedo da elearning. Segui il mio cursore? Cattivo. Ma io ho LTspice ahah iNFATTI non mi risulta affatto friendly
+
+
+\NewSection{Buongiorno!!}
+\begin{verbatim}
+|\---/|
+| o_o |
+ \_^_/
+ 
+      /\_/\ /\_/\
+     (^ ^) {@ @}
+     ==~== ==o==
+      \@/   \^/
+      |=|   ###_
+(    /  \  /    \
+ \  /   |  |     \
+  )/ ||||  ||||(  \   \
+ (( /||||  |||| \  )   )
+   m !m!m  m!m! m-~(__/
+   https://www.asciiart.eu/animals/cats
+   Art by Joan Stark
+
+           .'\   /`.
+         .'.-.`-'.-.`.
+    ..._:   .-. .-.   :_...
+  .'    '-.(o ) (o ).-'    `.
+ :  _    _ _`~(_)~`_ _    _  :
+:  /:   ' .-=_   _=-. `   ;\  :
+:   :|-.._  '     `  _..-|:   :
+ :   `:| |`:-:-.-:-:'| |:'   :
+  `.   `.| | | | | | |.'   .'
+    `.   `-:_| | |_:-'   .'
+ jgs  `-._   ````    _.-'
+          ``-------''
+
+\end{verbatim}
+\LogMark{Analisi}{9:49}
+Usiamo gli strumenti di analisi DC...
+Ci sono vari strumenti sotto Analysis->DC Analysis, proviamo le varie possibilità per analizzare correnti e tensioni sui vari componenti/nodi.
+\begin{enumerate}
+    \item xxx: sonda
+    \item xxx: tavola
+    \item xxx: grafico in funzione di un parametro
+    \item xxx: in funzione della temperatura (non ci serve)
+\end{enumerate}
+analisy transfer control su rx per vedere quando si azzera, si azzera a 2k, come ci aspettavamo
+
+\Nota{
+    Posso usare l'Help relativo ai componenti per ottenere informazioni dettagliate su di essi.
+}
+
+I breve cosa stiamo facendo:
+\begin{enumerate}
+    \item clicchiamo new line script. Una volta scritto il programma qui, puoi salvarlo anche in pdf o LateX. n.b. tutte le cose bnumeriche si possono fare in simbolico. Le variabili vanno dichiarate. solve() per risolvere le equazioni algebriche. lezione1.pdf
+\end{enumerate}
+
+Cosa sto scrivendo su Matlab:
+syms x
+int(sqrt(tan(x)))
+pretty(ans)
+latex(ans)
+ 
+output dell'istruzione LateX:
+\begin{equation}
+ans = '\frac{\sqrt{2}\,\left(\ln\left(\sqrt{2}\,\sqrt{\mathrm{tan}\left(x\right)}-\mathrm{tan}\left(x\right)-1\right)-\ln\left(\mathrm{tan}\left(x\right)+\sqrt{2}\,\sqrt{\mathrm{tan}\left(x\right)}+1\right)\right)}{4}+\frac{\sqrt{2}\,\left(\mathrm{atan}\left(\sqrt{2}\,\sqrt{\mathrm{tan}\left(x\right)}-1\right)+\mathrm{atan}\left(\sqrt{2}\,\sqrt{\mathrm{tan}\left(x\right)}+1\right)\right)}{2}'
+\end{equation}
+
+\LogMark{creiamo un Live Script}{10:09}
+Ora lavoreremo in un Live Script così da poter vedere tutta la storia.
+\Nota{
+    I comabdi %\verb|help symbolic| e \verb| doc symbolic|
+}
+VPA per usare un numero arbitrario di cifre significative
+\Avvertimento{
+    Attento a l'ordine delle operazioni ...
+}
+
+\LogMark{Esplorazione comandi simbolici}{10:15-...}
+semplificazione, espansione, soluzione equazioni, pretty, latex, int, diff, grafici, dsolve vari
+
+\Nota{
+    con latex() ci possiamo far dare il codice latex di un simbolico, possiamo anche esportare in vari formati tutto il documento.
+}
+
+\LogMark{Ponte di Wheatstone}{10:34}
+Introduzione all'esercizio del ponte di Wheatstone
+\TODO{
+    Da fare a casa (vedi slides)
+}
+%Si costruisce una matrice che deriva dal circuito: A * x = b, dove il vettore x è incognito
