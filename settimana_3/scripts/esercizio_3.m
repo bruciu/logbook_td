@@ -3,17 +3,17 @@
 T = 5; % secondi
 
 % frequenza del segnale
-f_s = 15.7; % Hz
+f_s = 15; % Hz
 
 % lunghezza del vettore (numero di punti)
 n = 14;
 L = 2^n;
 
 % array dei tempi:
-t = linspace(0, T, L) + randn(1, L) * T/(L);
+t = linspace(0, T, L) + randn(1, L) * T/(L)*0;
 
 % array del segnale:
-y = cos(f_s * 2 * pi * t) + randn(1, L);
+y = cos(f_s * 2 * pi * t) + randn(1, L) * 0;
 
 [freqs, Ampiezze, fase] = myFFT(y, T/L) ;
 
@@ -30,7 +30,9 @@ plot(freqs(interessanti), Ampiezze(interessanti), '-d')
 fprintf("massima ampiezza = %f", max(Ampiezze));
 
 
-
+numel(y)
+[f, df] = calcolaFmax(y, T/L);
+fprintf("%f +- %f\n", f, df)
 
 
 

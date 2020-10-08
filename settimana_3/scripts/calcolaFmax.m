@@ -82,7 +82,8 @@ if (plot_analsys)
     xx = x1:0.01:x3;
     p = @(x) a(1) + a(2).*x + a(3).*x.^2;
     plot(xx - 1, p(xx), 'r');
-    plot([k_max, k_max] - 1, [p(k_max) * 0.98, p(k_max) * 1.02], 'r');
+    %plot([k_max, k_max] - 1, [p(k_max) * 0.98, p(k_max) * 1.02], 'r');
+    plot(k_max - 1, p(k_max), '.r', 'MarkerSize',20);
     hold off;
 end
 
