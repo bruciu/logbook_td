@@ -11,9 +11,9 @@ end
 %fgets(fid); % legge una linea
 
 tmp = fscanf(fid,'%f %f %f\n', [3 Inf]);
-freq = tmp(1,:)';
-A = tmp(2,:)';
-phi = deg2rad(tmp(3,:)');
+freq = tmp(1,:);
+A = tmp(2,:);
+phi = tmp(3,:);
 
 fclose(fid);
 return
