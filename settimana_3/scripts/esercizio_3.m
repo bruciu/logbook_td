@@ -10,12 +10,12 @@ n = 14;
 L = 2^n;
 
 % array dei tempi:
-t = linspace(0, T, L) + randn(1, L) * T/(L)*50;
+t = linspace(0, T, L) + randn(1, L) * T/(L);
 
 % array del segnale:
-y = cos(f_s * 2 * pi * t);
+y = cos(f_s * 2 * pi * t) + randn(1, L);
 
-[freqs, Ampiezze, fase] = myFFT(y, T/L);
+[freqs, Ampiezze, fase] = myFFT(y, T/L) ;
 
 subplot(2, 1, 1);
 plot(t, y, '+')
