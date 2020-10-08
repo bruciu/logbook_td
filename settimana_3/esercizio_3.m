@@ -1,6 +1,6 @@
 
 % tempo totale
-T = 10; % secondi
+T = 5; % secondi
 
 % frequenza del segnale
 f_s = 15.7; % Hz
