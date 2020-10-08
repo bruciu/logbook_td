@@ -23,12 +23,11 @@ tmp = (x1-5):0.001:(x2 + 5);
 plot(tmp, a(1) + a(2)*tmp + a(3) * tmp.^2)
 plot([- a(2)/(2*a(3)), - a(2)/(2*a(3))], [0, 1])
 
-DELTA = (N - 1)./(sum(yy.^2) - FT2(kmax));
-kmax/(dt * N * multiplier)
+DELTA = (N - 1)./(sum(FT2) - 2 .* FT2(kmax));
 kmax = - a(2)/(2*a(3));
 f = kmax/(dt * N * multiplier);
 %t = sqrt(-1/(DELTA*a(3)));
-t = sqrt(-1/(2 * DELTA*a(3)));
+t = sqrt(-1/(DELTA*a(3)));
 df = t/(dt * N * multiplier);
 
 end
