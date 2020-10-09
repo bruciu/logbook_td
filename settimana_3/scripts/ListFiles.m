@@ -1,6 +1,6 @@
 cart = 'rumore_seno';
 
-t = listfilesfun(cart);
+t = listfilesfun(cart, 1, 0, 0);
 
 %plot(t, 0);
 
