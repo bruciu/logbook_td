@@ -27,7 +27,7 @@ ylabel("valore [u]");
 
 subplot(2, 1, 2);
 f_max = freqs(i_max);
-interessanti = [max(0, floor(f_max - max(10 / T, f_max / 4))), min(L, floor(f_max + max(10 / T, f_max / 4)))];
+interessanti = [max(0, floor(f_max - max(3 / T, f_max / 4))), min(L, floor(f_max + max(3 / T, f_max / 4)))];
 stem(freqs, Ampiezze, 'dr')
 xlim(interessanti);
 %set(gca, "YScale", 'log');
