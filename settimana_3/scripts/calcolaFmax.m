@@ -5,7 +5,7 @@ if (nargin < 3)
 end
 
 if (nargin < 4)
-    plot_analsys = true;
+    plot_analsys = false;
 end
 
 M = multiplier;

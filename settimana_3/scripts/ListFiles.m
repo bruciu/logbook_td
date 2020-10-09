@@ -1,8 +1,8 @@
-cart = "rumore_seno";
+cart = 'rumore_seno';
 
 t = listfilesfun(cart);
 
-plot(t, 0);
+%plot(t, 0);
 
 
 %matrice DATA(n* file, riga, colonna)
