@@ -64,6 +64,7 @@ A = [
 ];
 a = A\[y1; y2; y3]; % coefficienti della parabola a1 + a2*x + a3*x^2
 
+% NOTA!!!! -1 è sbagliato?
 DELTA = (N - 1)./(sum(abs(fft(yy)/N).^2) - 2 .* FT2_ext(k_max));
 
 % migliora la stima di k_max
