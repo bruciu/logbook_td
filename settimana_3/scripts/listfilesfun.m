@@ -1,4 +1,4 @@
-function [tensore] = listfilesfun(Name_folder)
+function [tensore] = listfilesfun(Name_folder, boolgauss, boolparziale, boolcompleto)
 %LISTFILESFUN Summary of this function goes here
 %   Detailed explanation goes here
 lista = dir(Name_folder);
@@ -26,49 +26,55 @@ for i = 3:numel(lista)
     %display(vector);
     [f, A, phi] = myFFT(yy, ((xx(3) - xx(2))/2));
     [fmax, dfmax] = calcolaFmax(yy, ((xx(3) - xx(2))/2));
-    hold on
-    grid on
-    stem(f, A, 'black.', 'LineWidth', 0.5)
-    %plot(f, A, 'yellow-', 'LineWidth', 0.5)
-    minx = max(0, fmax - 10^(3));
-    maxx = fmax+10^(3);
-    axis([minx  maxx  min(A)-0.1 max(A)+0.1])
-    %xlabel('-\pi \leq \itt \leq \pi')
-    %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
-    xlabel("Frequenza [Hz]")
-    ylabel('Ampiezza FFT')
-    title(Titolo1)
-    hold off;
-    figure;
-    hold on
-    grid on
-    stem(f, A, 'black.', 'LineWidth', 0.5)
-    %plot(f, A, 'yellow-', 'LineWidth', 0.5)
-    axis([0 max(f) min(A)-0.1 max(A)+0.1])
-    xlabel("Frequenza [Hz]")
-    ylabel('Ampiezza FFT')
-    title(Titolo2)
-    hold off;
-    %plot(vector(:,1), vector(:,2), 'green.-', 'LineWidth', 0.5)%, '.-')%, 'LineWidth', 2, '.-')
-    %axis([min(vector(:,1)) max(vector(:,1)) min(vector(:,2)) max(vector(:,2))]);
-%, '.-');
-    figure;
-    hold on
-    grid on
-    z = complex(A.*cos(phi), A.*sin(phi));
-    compass(z);
-    %stem(f, A, 'black.', 'LineWidth', 0.5)
-    %plot(f, A, 'yellow-', 'LineWidth', 0.5)
-    minx = max(0, fmax - 10^(3));
-    maxx = fmax+10^(3);
-    %axis([minx  maxx  min(A)-0.1 max(A)+0.1])
-    %xlabel('-\pi \leq \itt \leq \pi')
-    %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
-    xlabel('Frequenza [Hz]')
-    ylabel('Ampiezza FFT')
-    title(Titolo1)
-    hold off;
-    figure;
+    if boolgauss == 1
+        hold on
+        grid on
+        stem(f, A, 'black.', 'LineWidth', 0.5)
+        %plot(f, A, 'yellow-', 'LineWidth', 0.5)
+        minx = max(0, fmax - 10^(3));
+        maxx = fmax+10^(3);
+        axis([minx  maxx  min(A)-0.1 max(A)+0.1])
+        %xlabel('-\pi \leq \itt \leq \pi')
+        %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
+        xlabel("Frequenza [Hz]")
+        ylabel('Ampiezza FFT')
+        title(Titolo1)
+        hold off;
+        figure;
+    end
+    if boolparziale == 1
+        hold on
+        grid on
+        stem(f, A, 'black.', 'LineWidth', 0.5)
+        %plot(f, A, 'yellow-', 'LineWidth', 0.5)
+        axis([0 max(f) min(A)-0.1 max(A)+0.1])
+        xlabel("Frequenza [Hz]")
+        ylabel('Ampiezza FFT')
+        title(Titolo2)
+        hold off;
+        %plot(vector(:,1), vector(:,2), 'green.-', 'LineWidth', 0.5)%, '.-')%, 'LineWidth', 2, '.-')
+        %axis([min(vector(:,1)) max(vector(:,1)) min(vector(:,2)) max(vector(:,2))]);
+        %, '.-');
+        figure;
+    end
+    if boolcompleto==1
+        hold on
+        grid on
+        z = complex(A.*cos(phi), A.*sin(phi));
+        compass(z);
+        %stem(f, A, 'black.', 'LineWidth', 0.5)
+        %plot(f, A, 'yellow-', 'LineWidth', 0.5)
+        minx = max(0, fmax - 10^(3));
+        maxx = fmax+10^(3);
+        %axis([minx  maxx  min(A)-0.1 max(A)+0.1])
+        %xlabel('-\pi \leq \itt \leq \pi')
+        %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
+        xlabel('Frequenza [Hz]')
+        ylabel('Ampiezza FFT')
+        title(Titolo1)
+        hold off;
+        figure;
+    end
 end
 %vector = zeros(1, 3);
 tensore = 0;
