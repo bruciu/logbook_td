@@ -26,7 +26,7 @@ for i = 3:numel(lista)
     %display(vector);
     [f, A, phi] = myFFT(yy, ((xx(3) - xx(2))/2));
     [fmax, dfmax] = calcolaFmax(yy, ((xx(3) - xx(2))/2));
-    if boolgauss == 1
+    if boolparziale == 1
         hold on
         grid on
         stem(f, A, 'black.', 'LineWidth', 0.5)
@@ -42,7 +42,7 @@ for i = 3:numel(lista)
         hold off;
         figure;
     end
-    if boolparziale == 1
+    if boolcompleto == 1
         hold on
         grid on
         stem(f, A, 'black.', 'LineWidth', 0.5)
@@ -57,21 +57,21 @@ for i = 3:numel(lista)
         %, '.-');
         figure;
     end
-    if boolcompleto==1
+    if boolgauss==1
+        z = complex(A.*cos(phi), A.*sin(phi));
+        compass(z)%, '-.');
         hold on
         grid on
-        z = complex(A.*cos(phi), A.*sin(phi));
-        compass(z);
         %stem(f, A, 'black.', 'LineWidth', 0.5)
         %plot(f, A, 'yellow-', 'LineWidth', 0.5)
-        minx = max(0, fmax - 10^(3));
-        maxx = fmax+10^(3);
+        %minx = max(0, fmax - 10^(3));
+        %maxx = fmax+10^(3);
         %axis([minx  maxx  min(A)-0.1 max(A)+0.1])
         %xlabel('-\pi \leq \itt \leq \pi')
         %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
         xlabel('Frequenza [Hz]')
         ylabel('Ampiezza FFT')
-        title(Titolo1)
+        title(Titolo3)
         hold off;
         figure;
     end
