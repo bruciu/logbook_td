@@ -1,6 +1,7 @@
-cart = 'rumore_seno';
+cart = 'rumore_dente';
+directory = '../data/';
 
-t = listfilesfun(cart, 1, 0, 0);
+t = listfilesfun(directory, cart, 0, 1, 1, 1, 1);
 
 %plot(t, 0);
 
