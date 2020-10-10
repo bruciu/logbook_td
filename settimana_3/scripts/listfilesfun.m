@@ -1,4 +1,4 @@
-function [tensore] = listfilesfun(Directory, Name_folder, boolgauss, boolparziale, boolcompleto, boolsave, booldoppio)
+function [tensore] = listfilesfun(Directory, Name_folder, boolgauss, boolparziale, boolcompleto, boolsave, booldoppio, boolsemilogy)
 %LISTFILESFUN Summary of this function goes here
 %   Detailed explanation goes here
 lista = dir(strcat(Directory, Name_folder));
@@ -27,6 +27,8 @@ for i = 3:numel(lista)
     %display(vector);
     [f, A, phi] = myFFT(yy, ((xx(3) - xx(2))/2));
     %[fmax, dfmax] = calcolaFmax(yy, ((xx(3) - xx(2))/2));
+    %display(fmax);
+    %display(dfmax);
     [~, kmax] = max(A);
     fmax = f(kmax);
     if boolparziale == 1
@@ -36,7 +38,8 @@ for i = 3:numel(lista)
             subplot(2, 1, 1);
             hold on
             grid on
-            plot(vector(:, 1), vector(:, 2), 'red-')
+            q = plot(vector(:, 1), vector(:, 2), 'blue-');
+            q.Color(4) = 0.3;
             xlabel("Tempo [s]")
             ylabel("Tensione [V]")
             minx = min(vector(:,1));
@@ -53,11 +56,18 @@ for i = 3:numel(lista)
         end
         hold on
         grid on
-        stem(f, A, 'black.', 'LineWidth', 0.5)
-        %semilogy(f, A, 'black.', 'LineWidth', 0.5)
+        if boolsemilogy == 0
+            stem(f, A, 'black.', 'LineWidth', 0.5)
+        else
+            plot(f, A, 'blue-', 'LineWidth', 0.5)
+            a = area(f, A);
+            a.FaceColor = 'blue';
+            a.EdgeColor = 'blue';
+            a.FaceAlpha = 0.6;
+        end
         %plot(f, A, 'yellow-', 'LineWidth', 0.5)
         minx = max(0, fmax - 10^(3));
-        maxx = fmax+10^(3);
+        maxx = min(fmax+10^(3), max(f));
         %axis([minx  maxx  min(A)-0.1 max(A)+0.1])
         xlim([minx  maxx])
         ylim([min(A)-0.1 max(A)+0.1])
@@ -65,9 +75,17 @@ for i = 3:numel(lista)
         %xlabel(strcat(strcat(sprintf('%d', minx), 'Hz \leq  frequenza  \leq '),sprintf('%d Hz',maxx)))
         xlabel("Frequenza [Hz]")
         ylabel('Ampiezza FFT')
+        if boolsemilogy == 1
+            %semilogy(f, A, 'black.', 'LineWidth', 0.5)
+            set(gca, 'YScale', 'log');
+        end
         hold off;
         if boolsave == 1
+            if boolsemilogy == 1
+            saveas(gcf,strcat(strcat('C:/Users/Serena/Desktop/immagini_listfiles/semilogy_', Titolo1), '.png'))
+            else
             saveas(gcf,strcat(strcat('C:/Users/Serena/Desktop/immagini_listfiles/', Titolo1), '.png'))
+            end
         end
         figure;
     end
@@ -78,7 +96,8 @@ for i = 3:numel(lista)
             subplot(2, 1, 1);
             hold on
             grid on
-            plot(vector(:, 1), vector(:, 2), 'red-')
+            q = plot(vector(:, 1), vector(:, 2), 'blue-');
+            q.Color(4) = 0.3;
             xlabel("Tempo [s]")
             ylabel("Tensione [V]")
             minx = min(vector(:,1));
@@ -95,18 +114,31 @@ for i = 3:numel(lista)
         end
         hold on
         grid on
-        stem(f, A, 'black.', 'LineWidth', 0.5)
+        if boolsemilogy == 0
+            stem(f, A, 'black.', 'LineWidth', 0.5)
+        else
+            plot(f, A, 'blue-', 'LineWidth', 0.5)
+            a = area(f, A);
+            a.FaceColor = 'blue';
+            a.EdgeColor = 'blue';
+            a.FaceAlpha = 0.6;
+        end
         %plot(f, A, 'yellow-', 'LineWidth', 0.5)
         axis([0 max(f) min(A)-0.1 max(A)+0.1])
         xlabel("Frequenza [Hz]")
         ylabel('Ampiezza FFT')
         %title(Titolo2)
+        if boolsemilogy == 1
+            %semilogy(f, A, 'black.', 'LineWidth', 0.5)
+            set(gca, 'YScale', 'log');
+        end
         hold off;
-        %plot(vector(:,1), vector(:,2), 'green.-', 'LineWidth', 0.5)%, '.-')%, 'LineWidth', 2, '.-')
-        %axis([min(vector(:,1)) max(vector(:,1)) min(vector(:,2)) max(vector(:,2))]);
-        %, '.-');
         if boolsave == 1
+            if boolsemilogy == 1
+            saveas(gcf,strcat(strcat('C:/Users/Serena/Desktop/immagini_listfiles/semilogy_', Titolo2), '.png'))
+            else
             saveas(gcf,strcat(strcat('C:/Users/Serena/Desktop/immagini_listfiles/', Titolo2), '.png'))
+            end
         end
         figure;
     end
