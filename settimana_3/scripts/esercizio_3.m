@@ -1,9 +1,8 @@
-
 % tempo totale
 T = 1; % secondi
 
 % frequenza del segnale
-f_s = 10; % Hz
+f_s = 10.5; % Hz
 
 % lunghezza del vettore (numero di punti)
 n = 10;
@@ -14,7 +13,7 @@ L = 2^n;
 t = (0:(L-1)) * T/L + 0.25 * 0;
 % array del segnale:
 %y = cos(f_s * 2 * pi * t) + randn(1, L) * 0;
-y = sawtooth(f_s * 2 * pi * t);
+y = square(f_s * 2 * pi * t);
 
 [freqs, Ampiezze, fase] = myFFT(y, T/L) ;
 [A_max, i_max] = max(Ampiezze);
@@ -28,7 +27,7 @@ ylabel("valore [u]");
 subplot(2, 1, 2);
 f_max = freqs(i_max);
 interessanti = [max(0, floor(f_max - 5 / T)), min(L, floor(f_max + 5 / T))];
-if (0)
+if (1)
     stem(freqs, Ampiezze, 'dr')
 else
     g = area(freqs, Ampiezze);
@@ -36,15 +35,15 @@ else
     g.EdgeColor = 'b';
     g.FaceAlpha = 0.5;
 end
-%xlim(interessanti);
-set(gca, "YScale", 'log');
+xlim(interessanti);
+%set(gca, "YScale", 'log');
 %set(gca, "XScale", 'log');
 
 grid();
 
 fprintf("massima ampiezza = %f", max(Ampiezze));
 
-if (0)
+if (1)
     % ZERO PADDING
     M = 8;
     [freqs, Ampiezze, fase] = myFFT([y, zeros(1, numel(y) * (M - 1))], T/L);
@@ -52,7 +51,7 @@ if (0)
     stem(freqs, Ampiezze * M, '.b')
     hold off
     
-    legend("abs(FFT)", sprintf("abs(FFT) + zero-padding (M = %d)", M))
+    legend("abs(FFT)", sprintf("abs(FFT) + ZP (M = %d)", M))
     title("spettro");
     xlabel("frequenze [Hz]");
     ylabel("ampiezza [u]");
