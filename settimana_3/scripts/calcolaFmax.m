@@ -38,6 +38,12 @@ FT2_ext = abs(FT_ext(1:(N * multiplier / 2))).^2;
 % trova il massimo
 [~, k_max] = max(FT2_ext);
 
+if (k_max <= 1)
+    f = 0;
+    df = 0;
+    return;
+end
+
 % ora prendi tre punti lì intorno:
 x1 = k_max - 1;
 y1 = FT2_ext(k_max - 1);
