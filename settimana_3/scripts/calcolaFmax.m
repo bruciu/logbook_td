@@ -28,23 +28,21 @@ N = numel(yy);
 yy_ext = [yy, zeros(1, (M-1)*N)];
 
 % trasformata discreta dui punti con lo zero_padding, divisa per N come se
-% fosse la trasformata normale, così è equivalente ad un semplice "infittimento"
+% fosse la trasformata normale, cosi' e' equivalente ad un semplice "infittimento"
 % della normale DFT
 FT_ext = fft(yy_ext) / (N);
 
-% considera il modulo quadro (solo prima metà)
+% considera il modulo quadro (solo prima meta')
 FT2_ext = abs(FT_ext(1:(N * multiplier / 2))).^2;
 
 % trova il massimo
 [~, k_max] = max(FT2_ext);
 
 if (k_max <= 1)
-    f = 0;
-    df = 0;
-    return;
+    throw MException('ricerca del massimo fallita')
 end
 
-% ora prendi tre punti lì intorno:
+% ora prendi tre punti li' intorno:
 x1 = k_max - 1;
 y1 = FT2_ext(k_max - 1);
 x2 = k_max;
@@ -70,7 +68,6 @@ A = [
 ];
 a = A\[y1; y2; y3]; % coefficienti della parabola a1 + a2*x + a3*x^2
 
-% NOTA!!!! -1 è sbagliato?
 DELTA = (N - 1)./(sum(abs(fft(yy)/N).^2) - 2 .* FT2_ext(k_max));
 
 % migliora la stima di k_max
@@ -79,7 +76,7 @@ k_max = - a(2)/(2*a(3));
 % trova la frequeza associata
 f = (k_max - 1)/(dt * N * multiplier);
 
-% trova l'incertezza (in unità di indici)
+% trova l'incertezza sulla frequenza (in unita' di indici)
 t = sqrt(-1/(DELTA*a(3)));
 
 % calcola l'incertezza in frequenza
