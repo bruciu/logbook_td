@@ -1,48 +1,55 @@
 % tempo totale
-T = 1; % secondi
+T = sqrt(2)*1e5 + gamma(10); % secondi
 
 % frequenza del segnale
-f_s = 2; % Hz
+f_s = 5000; % Hz
 
 % lunghezza del vettore (numero di punti)
 n = 10;
 L = 2^n;
 
+T = T*L;
+
 % array dei tempi:
 %t = linspace(0, T, L) + randn(1, L) * T/(L)*0;
 t = (0:(L-1)) * T/L + 0.25 * 0;
+
+%t_ritardo
+tr = 2e-5;
+display(f_s * 2 * pi*tr)
+
 % array del segnale:
-%y = cos(f_s * 2 * pi * t) + randn(1, L) * 0;
-%y = chirp(f_s * 2 * pi * t);
-%y = gauspuls(t, f_s, 0.2);
-%y = gauspuls(t - 0.5, f_s, 0.01);
-%y = gauspuls(t - 0.5, f_s, 1);
-y = tripuls(t - 0.5, 1/f_s, 0); 
+y = cos(f_s * 2 * pi * t);
+yr = cos(f_s * 2 * pi * (t - tr));
 
 [freqs, Ampiezze, fase] = myFFT(y, T/L) ;
 [A_max, i_max] = max(Ampiezze);
+[freqs_r, Ampiezze_r, fase_r] = myFFT(yr, T/L);
+[A_maxr, i_maxr] = max(Ampiezze_r);
 
 subplot(2, 1, 1);
-plot(t, y, '-')
-title(sprintf("L = %d  freq. sig. = %.2f, T_{tot} = %.2f", L, f_s, T));
-xlabel("tempo [s]");
-ylabel("valore [u]");
+stem(freqs, fase, 'dred')
+% plot(t, y, '-')
+title(sprintf("Fasi", L, f_s, T));
+xlabel("Frequenza [Hz]");
+ylabel("FFT [u]");
+xlim([0, max(freqs)]);
 
 subplot(2, 1, 2);
 f_max = freqs(i_max);
-interessanti = [max(0, floor(f_max - 5 / T)), min(L, floor(f_max + 5 / T))];
+ylabel("FFT [u]");
+%interessanti = [max(0, floor(f_max - 5 / T)), min(L, floor(f_max + 5 / T))];
 %interessanti = [0, max(f)];
+stem(freqs_r, fase - fase_r, 'dblue')
 if (0)
-    stem(freqs, Ampiezze, 'dred')
-else
     g = area(freqs, Ampiezze);
     g.FaceColor = 'b';
     g.EdgeColor = 'b';
     g.FaceAlpha = 0.5;
 end
-xlim(interessanti);
+%xlim(interessanti);
 xlim([0, max(freqs)]);
-set(gca, "YScale", 'log');
+%set(gca, "YScale", 'log');
 %set(gca, "XScale", 'log');
 
 grid();
@@ -100,6 +107,9 @@ end
 % y_s = (sin(f_s * 2 * pi * t) + 3).* (exp(-1i * 2 * t)) / 3;
 % plot(y_s, 'r-.');
 % plot(mean(y_s), 'r.');
+
+display(fase(i_max) - fase_r(i_max))
+display((fase(i_max) - fase_r(i_max))/(f_s * 2 * pi))
 
 saveas(gcf,'tmp/prova.png')
 
