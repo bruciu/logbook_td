@@ -15,7 +15,7 @@ if (nargin < 3)
 end
 
 if (nargin < 4)
-    M = 100;
+    M = 1000;
 end
 
 if (nargin < 5)
