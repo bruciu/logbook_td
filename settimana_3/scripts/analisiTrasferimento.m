@@ -1,5 +1,5 @@
 name = "data8";
-[tt, v_in, v_out] = leg_wavf2g("../data/FFT2/" + name + ".txt", false);
+[tt, v_in, v_out] = leg_wavf2g("../data/FFT2/" + name + ".txt", true);
 
 % -f/f_T= - RCf
 % 1/sqrt(1 + (f/ft)^2)
@@ -93,7 +93,7 @@ legend("data", "modello");
 hold off
 saveas(gcf,"tmp/sfasamento_" + name + ".png")
 
-
+A_teorico(1e4)
 
 
 
