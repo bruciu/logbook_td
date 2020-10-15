@@ -7,7 +7,7 @@ classdef Nucleo < handle
     end
     
     methods
-        function obj = apri_comunicazione(obj, porta)
+        function apri_comunicazione(obj, porta)
             if obj.isOpen()
                 obj.close();
             end
@@ -16,8 +16,14 @@ classdef Nucleo < handle
         function [aperto] = isOpen(obj)
             aperto = ~isnumeric(obj.sp);
         end
-        function obj = close(obj)
+        function close(obj)
             obj.sp = 0;
+        end
+        function linea = readline(obj)
+            if ~obj.isOpen()
+                error("la comunicazione non è aperta");
+            end
+            linea = obj.sp.readline();
         end
     end
 end
