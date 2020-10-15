@@ -1,4 +1,4 @@
-[tt, yy] = leg_wavf("../data/rumore seno/sinusoidale con rumore 4.txt");
+[tt, yy] = leg_wavf("../data/rumore_quadra/quadra con rumore.txt");
 
 plot_N = 1000;
 
