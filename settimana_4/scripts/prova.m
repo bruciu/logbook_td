@@ -1,4 +1,5 @@
-
+clear all
 n = Nucleo;
 
-n.ucle
+n.apri_comunicazione("COM3");
+n.sp
