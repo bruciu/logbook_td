@@ -27,6 +27,7 @@ classdef Nucleo < handle
         %             COMANDI
         % ================================
         
+        % ================================
         function [info_str] = getInfo(obj)
             %GETINFO chiede alla scheda di identificarsi, ritorna l'output
             
@@ -40,6 +41,7 @@ classdef Nucleo < handle
             info_str = obj.readline();
         end
         
+        % ================================
         function setADC(obj, value)
             %SETADC_ON avvia o spegni l'ADC
             
@@ -49,12 +51,23 @@ classdef Nucleo < handle
             if (value)
                 % manda il comando di attivazione
                 obj.writeline('ADC ON');
+                
+                % aspetta che diventi ON
+                while (~obj.isADC_ON())
+                    pause(0.1);
+                end
             else
                 % manda il comando di spegnimento
                 obj.writeline('ADC OFF');
+                
+                % aspetta che diventi OFF
+                while (obj.isADC_ON())
+                    pause(0.1);
+                end
             end
         end
         
+        % ================================
         function [val] = isADC_ON(obj)
             %ISADC_ON controlla se l'ADC è attivo
             
@@ -71,6 +84,7 @@ classdef Nucleo < handle
             end
         end
         
+        % ================================
         function setDAC(obj, value)
             %SETADC_ON avvia o spegni l'ADC
             
@@ -80,12 +94,23 @@ classdef Nucleo < handle
             if (value)
                 % manda il comando di attivazione
                 obj.writeline('DAC ON');
+                
+                % aspetta che diventi ON
+                while (~obj.isDAC_ON())
+                    pause(0.1);
+                end
             else
                 % manda il comando di spegnimento
                 obj.writeline('DAC OFF');
+                
+                % aspetta che diventi OFF
+                while (obj.isDAC_ON())
+                    pause(0.1);
+                end
             end
         end
         
+        % ================================
         function [val] = isDAC_ON(obj)
             %ISADC_ON controlla se l'ADC è attivo
             
@@ -93,13 +118,18 @@ classdef Nucleo < handle
             obj.assertOpen();
             
             obj.writeline('DAC?');
-            risposta = obj.readline()
+            risposta = obj.readline();
             
             if (risposta(2) == 'N')% ON
                 val = true;
             else
                 val = false;
             end
+        end
+        
+        % ================================
+        function setNSkip(obj, value)
+            
         end
         
         % ================================
