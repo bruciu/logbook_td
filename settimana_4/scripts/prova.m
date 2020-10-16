@@ -10,4 +10,9 @@ str = n.readline();
 
 n.getInfo()
 
-clear all; %chiude lo stesso la seriale
+n.setDAC(true);
+n.isDAC_ON()
+n.setDAC(false);
+n.isDAC_ON()
+
+%clear all; %chiude lo stesso la seriale
