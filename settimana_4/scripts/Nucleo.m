@@ -129,9 +129,52 @@ classdef Nucleo < handle
         
         % ================================
         function setNSkip(obj, value)
+            obj.assertOpen();
             
+            linea = sprintf('NSKIP %d', value);
+            
+            obj.writeline(linea);
+            
+            while(value ~= obj.getNSkip())
+                pause(0.1);
+                tmp = tmp + 0.1;
+                if tmp >= 5
+                    error("setNSkip: non terminato con successo");
+                end
+            end
         end
         
+        function rea = getNSkip(obj)
+            obj.assertOpen();
+            obj.writeline('NSKIP?');
+            rea = obj.readline();
+            rea = str2num(rea);
+        end
+        % ================================
+        function setNSamples(obj, value)
+            obj.assertOpen();
+            
+            linea = sprintf('NSAMPLE %d', value);
+            
+            obj.writeline(linea);
+            
+            tmp = 0;
+            
+            while(value ~= obj.getNSamples())
+                pause(0.1);
+                tmp = tmp + 0.1;
+                if tmp >= 5
+                    error("setNsamples: non terminato con successo");
+                end
+            end
+        end
+        
+        function rea = getNSamples(obj)
+            obj.assertOpen();
+            obj.writeline('NSAMPLES?');
+            rea = obj.readline();
+            rea = str2num(rea);
+        end
         % ================================
         %       COMUNICAZIONE SERIALE
         % ================================

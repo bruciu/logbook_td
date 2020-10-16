@@ -3,16 +3,25 @@
 n = Nucleo;
 
 n.apri_comunicazione('COM3');
+% 
+% n.sp.writeline('TIMER?');
+% 
+% str = n.readline();
 
-n.sp.writeline('TIMER?');
+% n.getInfo()
+% 
+% n.setDAC(true);
+% n.isDAC_ON()
+% n.setDAC(false);
+% n.isDAC_ON()
 
-str = n.readline();
 
-n.getInfo()
+n.setNSamples(100)
 
-n.setDAC(true);
-n.isDAC_ON()
-n.setDAC(false);
-n.isDAC_ON()
+n.getNSamples()
+
+n.setNSamples(10)
+
+n.getNSamples()
 
 %clear all; %chiude lo stesso la seriale
