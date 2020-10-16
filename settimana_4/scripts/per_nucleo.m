@@ -26,7 +26,7 @@ classdef per_nucleo < handle
             linea = obj.sp.readline();
         end
         %%%NUOVE
-        function idn(obj)
+        function whatIdn(obj)
             %*IDN?
         end
         function prescaler(obj, value)
@@ -34,6 +34,12 @@ classdef per_nucleo < handle
         end
         function isPrescaler(obj)
             %PRESCALER?
+        end
+        function changeTimer(obj, bo)
+            %TIMER{bo}
+        end
+        function whatTimer(obj)
+            %TIMER?
         end
     end
 end
