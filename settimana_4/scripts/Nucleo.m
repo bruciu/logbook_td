@@ -154,7 +154,7 @@ classdef Nucleo < handle
         function setNSamples(obj, value)
             obj.assertOpen();
             
-            linea = sprintf('NSAMPLE %d', value);
+            linea = sprintf('NSAMPLES %d', value);
             
             obj.writeline(linea);
             
