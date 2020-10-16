@@ -8,6 +8,6 @@ n.sp.writeline('TIMER?');
 
 str = n.readline();
 
-str
+n.getInfo()
 
-%clear all; %chiude lo stesso la seriale
+clear all; %chiude lo stesso la seriale
