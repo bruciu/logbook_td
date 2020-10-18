@@ -51,19 +51,21 @@ classdef Nucleo < handle
             if (value)
                 % manda il comando di attivazione
                 obj.writeline('ADC ON');
+                obj.readline();
                 
                 % aspetta che diventi ON
-                while (~obj.isADC_ON())
-                    pause(0.1);
-                end
+%                 while (~obj.isADC_ON())
+%                     pause(0.1);
+%                 end
             else
                 % manda il comando di spegnimento
                 obj.writeline('ADC OFF');
+                obj.readline();
                 
                 % aspetta che diventi OFF
-                while (obj.isADC_ON())
-                    pause(0.1);
-                end
+%                 while (obj.isADC_ON())
+%                     pause(0.1);
+%                 end
             end
         end
         
@@ -94,6 +96,7 @@ classdef Nucleo < handle
             if (value)
                 % manda il comando di attivazione
                 obj.writeline('DAC ON');
+                obj.readline();
                 
                 % aspetta che diventi ON
                 while (~obj.isDAC_ON())
@@ -102,6 +105,7 @@ classdef Nucleo < handle
             else
                 % manda il comando di spegnimento
                 obj.writeline('DAC OFF');
+                obj.readline();
                 
                 % aspetta che diventi OFF
                 while (obj.isDAC_ON())
@@ -134,6 +138,7 @@ classdef Nucleo < handle
             linea = sprintf('NSKIP %d', value);
             
             obj.writeline(linea);
+            obj.readline();
             
             while(value ~= obj.getNSkip())
                 pause(0.1);
@@ -157,6 +162,7 @@ classdef Nucleo < handle
             linea = sprintf('NSAMPLES %d', value);
             
             obj.writeline(linea);
+            obj.readline();
             
             tmp = 0;
             
@@ -174,6 +180,54 @@ classdef Nucleo < handle
             obj.writeline('NSAMPLES?');
             rea = obj.readline();
             rea = str2num(rea);
+        end
+        % ================================
+        function [value] = setPrescaler(obj, value)
+            obj.assertOpen();
+            
+            linea = sprintf('PRESCALER %d', value);
+            
+            obj.writeline(linea);
+            obj.readline();
+            
+            value = obj.getPrescaler();
+            return;
+            
+            tmp = 0;
+            
+            while(value ~= obj.getPrescaler())
+                pause(0.1);
+                tmp = tmp + 0.1;
+                if tmp >= 5
+                    error("setPrescaler: non terminato con successo");
+                end
+            end
+        end
+        
+        function rea = getPrescaler(obj)
+            obj.assertOpen();
+            obj.writeline('PRESCALER?');
+            rea = obj.readline();
+            rea = str2num(rea);
+        end
+        % ================================
+        %            DAC&&ACD
+        % ================================
+        function [tt, yy0, yy1] = getValues(obj)
+            
+            obj.writeline('ADCVALUES?');
+            
+            out = obj.readline();
+            
+            
+            yy = sscanf(char(out), '%f,');
+            yy0 = yy(1:2:end);
+            yy1 = yy(2:2:end);
+            
+            tt =0.;
+            
+            
+            
         end
         % ================================
         %       COMUNICAZIONE SERIALE
