@@ -227,6 +227,23 @@ classdef Nucleo < handle
             
             tt = (0:(numel(yy)-1)) * obj.getPrescaler()/120e6 ;
         end
+        
+        function nVals = setWaveValues(obj, values)
+            obj.assertOpen();
+            
+            values = round(values);
+            valori_chars = char(sprintf("%d,", values));
+            obj.writeline(['WAVEFUNC ', valori_chars(1:end-1)]);
+            
+            nVals = str2num(obj.readline());
+        end
+        
+        function nVals = setWaveFun(obj, func, Npts)
+            obj.assertOpen();
+            
+            xx = (0:(Npts - 1))/Npts;
+            nVals = obj.setWaveValues(func(xx));
+        end
         % ================================
         %       COMUNICAZIONE SERIALE
         % ================================
