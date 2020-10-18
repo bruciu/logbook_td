@@ -3,9 +3,9 @@ clear all;
 f = 1000;
 
 N_onda = 100;
+N_samples = 600;
 
-funz = @(x) sin(x*2*pi) * 4000 + 2050;
-mini.setWaveFun(funz, N_onda);
+funz = @(x) sawtooth(x*2*pi) * 1000 + 2050;
 
 ftrig = N_onda * f;
 
@@ -17,29 +17,27 @@ mini = Nucleo;
 
 mini.apri_comunicazione('COM3');
 
+mini.setWaveFun(funz, N_onda);
+
 mini.setNSkip(10);
 
-mini.setNSamples(N_onda);
+mini.setNSamples(N_samples);
 
 mini.setPrescaler(PS);
 
-mini.setDAC(true);
+[t, y0, y1]= mini.DACADC();
 
-mini.setADC(true);
+%[t, y0, y1] = mini.getValues();
 
-pause(1);
-
-[t, y0, y1] = mini.getValues();
-
-plot(y0, 'r.-'); 
+plot(t, y0, 'r.-'); 
 
 hold on; 
 
-plot(y1, 'b.-');
+plot(t, y1, 'b.-');
 
-mini.setDAC(false);
-
-mini.setADC(false);
+% mini.setDAC(false);
+% 
+% mini.setADC(false);
 
 
 %

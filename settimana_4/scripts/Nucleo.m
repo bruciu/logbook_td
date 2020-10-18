@@ -63,9 +63,9 @@ classdef Nucleo < handle
                 obj.readline();
                 
                 % aspetta che diventi OFF
-%                 while (obj.isADC_ON())
-%                     pause(0.1);
-%                 end
+                while (obj.isADC_ON())
+                    pause(0.1);
+                end
             end
         end
         
@@ -244,6 +244,18 @@ classdef Nucleo < handle
             xx = (0:(Npts - 1))/Npts;
             nVals = obj.setWaveValues(func(xx));
         end
+        
+        function [tt, yy0, yy1] = DACADC(obj)
+            obj.assertOpen();
+            
+            obj.setDAC(true);
+            obj.setADC(true);% TODO controlla che abbia funzionato
+            obj.setADC(false);
+            obj.setDAC(false);
+            
+            [tt, yy0, yy1] = obj.getValues();
+        end
+        
         % ================================
         %       COMUNICAZIONE SERIALE
         % ================================
