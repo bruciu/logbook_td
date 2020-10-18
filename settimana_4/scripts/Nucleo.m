@@ -221,13 +221,11 @@ classdef Nucleo < handle
             
             
             yy = sscanf(char(out), '%f,');
-            yy0 = yy(1:2:end);
-            yy1 = yy(2:2:end);
             
-            tt =0.;
+            yy0 = mod(yy, 65536);
+            yy1 = (yy - yy0) / 65536;
             
-            
-            
+            tt = (0:(numel(yy)-1)) * obj.getPrescaler()/120e6 ;
         end
         % ================================
         %       COMUNICAZIONE SERIALE
