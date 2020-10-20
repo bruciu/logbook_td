@@ -38,6 +38,11 @@ hold on;
 
 plot(t, y1, 'b.-');
 hold off;
+ylabel("letture [u.a.]")
+xlabel("tempo [s]")
+legend("ADC0", "ADC1")
+saveas(gcf,'tmp/prova.png');
+%print("tmp/prova", '-dpdf');
 end
 % mini.setDAC(false);
 % 
