@@ -262,7 +262,7 @@ classdef Nucleo < handle
             % abbia risposto
             %pause(0.1);
             
-            disp(riga);
+            %disp(riga);
         end
         
         function assertOpen(obj)

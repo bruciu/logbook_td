@@ -3,7 +3,7 @@ clear all;
 f = 1000;
 
 N_onda = 100;
-N_samples = 8192;
+N_samples = 1000;
 
 ftrig = N_onda * f;
 
@@ -32,10 +32,12 @@ mini.setPrescaler(PS);
 % A0_var;
 % A1_medio;
 % A1_var;
-N = 5;
+N = 4096;
 for i = 1:N
-    %pause();
-    funz = @(x) 4095*(i-1)/N;
+    %pase();
+    waitbar(i/N);
+    disp(i);
+    funz = @(x) 4096*(i-1)/(N);
     mini.setWaveFun(funz, N_onda);
 
     
