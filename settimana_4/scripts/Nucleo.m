@@ -4,6 +4,10 @@ classdef Nucleo < handle
     
     properties
         sp = 0 %porta seriale - quando non è un numero, allora è aperta la comunicazione
+        
+        m_nSkip = 0;
+        m_prescaler = 0;
+        m_nSamples = 0;
     end
     
     methods
@@ -13,6 +17,11 @@ classdef Nucleo < handle
                 obj.close();
             end
             obj.sp = serialport(porta, 2e6);
+            
+            obj.assertOpen();
+            obj.m_nSkip = obj.getNSkip();
+            obj.m_prescaler = obj.getPrescaler();
+            obj.m_nSamples = obj.getNSamples();
         end
         
         function [aperto] = isOpen(obj)
@@ -52,20 +61,10 @@ classdef Nucleo < handle
                 % manda il comando di attivazione
                 obj.writeline('ADC ON');
                 obj.readline();
-                
-                % aspetta che diventi ON
-%                 while (~obj.isADC_ON())
-%                     pause(0.1);
-%                 end
             else
                 % manda il comando di spegnimento
                 obj.writeline('ADC OFF');
                 obj.readline();
-                
-                % aspetta che diventi OFF
-                while (obj.isADC_ON())
-                    pause(0.1);
-                end
             end
         end
         
@@ -97,20 +96,10 @@ classdef Nucleo < handle
                 % manda il comando di attivazione
                 obj.writeline('DAC ON');
                 obj.readline();
-                
-                % aspetta che diventi ON
-                while (~obj.isDAC_ON())
-                    pause(0.1);
-                end
             else
                 % manda il comando di spegnimento
                 obj.writeline('DAC OFF');
                 obj.readline();
-                
-                % aspetta che diventi OFF
-                while (obj.isDAC_ON())
-                    pause(0.1);
-                end
             end
         end
         
@@ -140,13 +129,8 @@ classdef Nucleo < handle
             obj.writeline(linea);
             obj.readline();
             
-            while(value ~= obj.getNSkip())
-                pause(0.1);
-                tmp = tmp + 0.1;
-                if tmp >= 5
-                    error("setNSkip: non terminato con successo");
-                end
-            end
+            value = obj.getNSkip();
+            obj.m_nSkip = value;
         end
         
         function rea = getNSkip(obj)
@@ -164,15 +148,8 @@ classdef Nucleo < handle
             obj.writeline(linea);
             obj.readline();
             
-            tmp = 0;
-            
-            while(value ~= obj.getNSamples())
-                pause(0.1);
-                tmp = tmp + 0.1;
-                if tmp >= 5
-                    error("setNsamples: non terminato con successo");
-                end
-            end
+            value = obj.getNSamples();
+            obj.m_nSamples = value;
         end
         
         function rea = getNSamples(obj)
@@ -183,6 +160,10 @@ classdef Nucleo < handle
         end
         % ================================
         function [value] = setPrescaler(obj, value)
+            if (value < 120)
+                warning("prescaler deve essere 120 o maggiore")
+            end
+            
             obj.assertOpen();
             
             linea = sprintf('PRESCALER %d', value);
@@ -191,17 +172,7 @@ classdef Nucleo < handle
             obj.readline();
             
             value = obj.getPrescaler();
-            return;
-            
-            tmp = 0;
-            
-            while(value ~= obj.getPrescaler())
-                pause(0.1);
-                tmp = tmp + 0.1;
-                if tmp >= 5
-                    error("setPrescaler: non terminato con successo");
-                end
-            end
+            obj.m_prescaler = value;
         end
         
         function rea = getPrescaler(obj)
@@ -225,7 +196,7 @@ classdef Nucleo < handle
             yy0 = mod(yy, 65536);
             yy1 = (yy - yy0) / 65536;
             
-            tt = (0:(numel(yy)-1)) * obj.getPrescaler()/120e6 ;
+            tt = (0:(numel(yy)-1)) * obj.m_prescaler/120e6 ;
         end
         
         function nVals = setWaveValues(obj, values)
@@ -240,6 +211,9 @@ classdef Nucleo < handle
         
         function nVals = setWaveFun(obj, func, Npts)
             obj.assertOpen();
+            if obj.isDAC_ON()
+                error("il DAC deve essere spento prima di impostare wavefunc")
+            end
             
             xx = (0:(Npts - 1))/Npts;
             nVals = obj.setWaveValues(func(xx));
@@ -249,7 +223,13 @@ classdef Nucleo < handle
             obj.assertOpen();
             
             obj.setDAC(true);
-            obj.setADC(true);% TODO controlla che abbia funzionato
+            obj.setADC(true);
+            
+            tempo_attesa = (obj.m_prescaler / 120e6) * obj.m_nSamples *...
+                (obj.m_nSkip + 1);
+            tempo_attesa = tempo_attesa * 1.5 + 0.01;
+            pause(tempo_attesa);
+            
             obj.setADC(false);
             obj.setDAC(false);
             
@@ -280,7 +260,9 @@ classdef Nucleo < handle
             
             % aspetta un decimo per essere sicuri che sia arrivato e cha
             % abbia risposto
-            pause(0.1);
+            %pause(0.1);
+            
+            disp(riga);
         end
         
         function assertOpen(obj)
