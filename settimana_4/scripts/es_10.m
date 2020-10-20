@@ -35,7 +35,7 @@ mini.setPrescaler(PS);
 N = 5;
 for i = 1:N
     %pause();
-    funz = @(x) 4096*i/N;
+    funz = @(x) 4095*(i-1)/N;
     mini.setWaveFun(funz, N_onda);
 
     
