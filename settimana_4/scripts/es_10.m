@@ -32,7 +32,7 @@ mini.setPrescaler(PS);
 % A0_var;
 % A1_medio;
 % A1_var;
-N = 4096;
+N = 50;
 for i = 1:N
     %pase();
     waitbar(i/N);
