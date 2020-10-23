@@ -124,7 +124,7 @@ classdef Nucleo < handle
         function setNSkip(obj, value)
             obj.assertOpen();
             
-            linea = sprintf('NSKIP %d', value);
+            linea = sprintf('NSKIP %d', round(value));
             
             obj.writeline(linea);
             obj.readline();
@@ -143,7 +143,7 @@ classdef Nucleo < handle
         function setNSamples(obj, value)
             obj.assertOpen();
             
-            linea = sprintf('NSAMPLES %d', value);
+            linea = sprintf('NSAMPLES %d', round(value));
             
             obj.writeline(linea);
             obj.readline();
@@ -166,7 +166,7 @@ classdef Nucleo < handle
             
             obj.assertOpen();
             
-            linea = sprintf('PRESCALER %d', value);
+            linea = sprintf('PRESCALER %d', round(value));
             
             obj.writeline(linea);
             obj.readline();
