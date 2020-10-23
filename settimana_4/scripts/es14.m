@@ -15,13 +15,13 @@ clear all;
 % PS = 120e6/(f*N_onda);
 % PS = round(PS);
 
+N_cicli = 100;
 N_onda = 100;
 N_samples = 600;
-N = 20;
+N = 1000;
 PSrange = [120, 120e2];
 PSrange = linspace(PSrange(1), PSrange(2), N);
-ftrig = 120e6 ./ PSrange; 
-f = logspace(100., 1./max(ftrig), numel(PSrange));
+f = logspace(log10(120e6/(max(PSrange)*N_onda)), log10(120e6/(min(PSrange)*N_onda)), numel(PSrange));
 PSrange = 120e6./(f*N_onda);
 PSrange = round(PSrange);
 ftrig = 120e6 ./ PSrange; 
@@ -44,6 +44,7 @@ ampli1 = zeros(1,N);
 dampli1 = zeros(1,N);
 
 for ii = 1:N
+    disp(ii);
     mini.setPrescaler(PSrange(ii));
     [t, y0, y1]= mini.DACADC();
     plot(t, y0, 'r.-'); 
@@ -54,8 +55,8 @@ for ii = 1:N
     xlabel("tempo [s]")
     legend("ADC0", "ADC1")
     %saveas(gcf,'tmp/prova.png');
-    [freqs0, As0, dAs0, phis0, dphis0] = calcolaFFT_errori(y0 - mean(y0), 1, 1 ./ ftrig(ii));
-    [freqs1, As1, dAs1, phis1, dphis1] = calcolaFFT_errori(y1 - mean(y1), 1, 1 ./ ftrig(ii));
+    [freqs0, As0, dAs0, phis0, dphis0] = calcolaFFT_errori(y0 - mean(y0), 1, 1 ./ ftrig(ii), N_cicli);
+    [freqs1, As1, dAs1, phis1, dphis1] = calcolaFFT_errori(y1 - mean(y1), 1, 1 ./ ftrig(ii), N_cicli);
     [maxA0, jmax] = max(As0);
     [maxA1, ~] = max(As1);
     fasi0(ii) = phis0(jmax);
@@ -75,14 +76,18 @@ dguad = dguad.^2 + (dampli1./ampli0).^2;
 dguad = sqrt(dguad);
 dphi = sqrt(dfasi1.^2 + dfasi0.^2);
 
-errorbar(f, phi, dphi, 'r+-');
+errorbar(f, phi, dphi, 'r.')
+set(gca, 'XScale', 'log')
 grid()
-xlabel("Frequenza")
-ylabel("\Delta \phi [%]")
+xlabel("Frequenza [Hz]")
+ylabel("\Delta \phi [rad]")
 saveas(gcf,'tmp/graph.png');
+saveas(gcf,'tmp/provaes14_1.png');
 figure;
-errorbar(f, guad, dguad, 'b+-');
+errorbar(f, guad, dguad, 'b.')
+set(gca, 'XScale', 'log')
+set(gca, 'YScale', 'log')
 grid()
-xlabel("Prescaler")
-ylabel("---")
-
+xlabel("Frequenza [Hz]")
+ylabel("Guadagno")
+saveas(gcf,'tmp/provaes14_2.png');
