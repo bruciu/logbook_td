@@ -3,13 +3,13 @@ clear all;
 f = 1000;
 
 N_onda = 100;
-N_samples = 600;
+N_samples = 100;
 
 ftrig = N_onda * f;
 
 % funzione da generare (deve essere definita con periododo 1)
 %funz = @(x) gauspuls((x-0.5)*2*pi, 10, 0.05) * 1000 + 2050;
-funz = @(x) sin(x*2*pi) * 1000 + 2050;
+funz = @(x) sin(x*2*pi) * 100 + 2050;
 
 PS = 120e6/(f*N_onda);
 PS = round(PS);
