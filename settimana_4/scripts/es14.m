@@ -1,10 +1,29 @@
 clear all;
 
+% 
+% f = 1000;
+% 
+% N_onda = 100;
+% N_samples = 100;
+% 
+% ftrig = N_onda * f;
+% 
+% % funzione da generare (deve essere definita con periododo 1)
+% %funz = @(x) gauspuls((x-0.5)*2*pi, 10, 0.05) * 1000 + 2050;
+% funz = @(x) sin(x*2*pi) * 100 + 2050;
+% 
+% PS = 120e6/(f*N_onda);
+% PS = round(PS);
+
 N_onda = 100;
 N_samples = 600;
-N = 10;
+N = 20;
 PSrange = [120, 120e2];
 PSrange = linspace(PSrange(1), PSrange(2), N);
+ftrig = 120e6 ./ PSrange; 
+f = logspace(100., 1./max(ftrig), numel(PSrange));
+PSrange = 120e6./(f*N_onda);
+PSrange = round(PSrange);
 ftrig = 120e6 ./ PSrange; 
 f = ftrig ./N_onda;
 funz = @(x) sin(x*2*pi) * 1500 + 2050;
@@ -49,13 +68,20 @@ for ii = 1:N
     dampli1(ii) = dAs1(jmax);
 end
 
-errorbar(f, fasi0, dfasi0, 'r+');
+guad = ampli1./ampli0;
+phi = fasi1 - fasi0;
+dguad = ampli1.*dampli0./ampli0.^2;
+dguad = dguad.^2 + (dampli1./ampli0).^2;
+dguad = sqrt(dguad);
+dphi = sqrt(dfasi1.^2 + dfasi0.^2);
+
+errorbar(f, phi, dphi, 'r+-');
 grid()
 xlabel("Frequenza")
 ylabel("\Delta \phi [%]")
 saveas(gcf,'tmp/graph.png');
 figure;
-errorbar(PSrange, ampli0, dampli0, 'b+');
+errorbar(f, guad, dguad, 'b+-');
 grid()
 xlabel("Prescaler")
 ylabel("---")
