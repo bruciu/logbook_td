@@ -45,10 +45,11 @@ errorbar(PSrange, fasi, dfasi, 'r+');
 grid()
 xlabel("Prescaler")
 ylabel("\Delta \phi [%]")
-saveas(gcf,'tmp/graph.png');
+saveas(gcf,'tmp/graphphi100.png');
 figure;
 errorbar(PSrange, ampli, dampli, 'b+');
 grid()
 xlabel("Prescaler")
-ylabel("---")
+ylabel("Differenza relativa fra le ampiezze")
+saveas(gcf,'tmp/graphampli100.png');
 
