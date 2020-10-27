@@ -4,6 +4,7 @@ load('tmp/Bode_guadagno_es14.mat')
 
 funz_orig = @(ft, r_int, x) 1./sqrt((1 + r_int).^2 + (ft./x).^2);
 funz = @(ft, b, r_int, alpha, x) sqrt(funz_orig(ft, r_int, x).^2 + b.^2 + 2 .* b .* funz_orig(ft, r_int, x) .* cos(alpha));
+funz = @(ft, b, r_int, alpha, x) 1./ sqrt(1 + (ft./x).^2) + b*0 + r_int * 0 + alpha * 0
 
 fitfun = fittype(funz);
 X0 = [1/(2*pi*5e3*10e-9), 0, 0, 0];
@@ -28,6 +29,7 @@ grid()
 xlabel("Frequenza [Hz]")
 ylabel("Guadagno")
 saveas(gcf,'tmp/provaes15.png');
-legend('fit', 'dati')
+legend('dati', 'fit')
+grid()
 hold off;
 
