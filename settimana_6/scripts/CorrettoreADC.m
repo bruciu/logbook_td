@@ -4,17 +4,83 @@ classdef CorrettoreADC < handle
     
     properties
         DAC_vals = 0;
-        ADC_mean = 0;
-        ADC_var = 0;
+        A0_mean = 0;
+        A0_var = 0;
+        A1_mean = 0;
+        A1_var = 0;
     end
     
     methods
         
-        function [valore_centrale, dev_std, varianza] = correggi(obj, valori)
-            [valore_centrale, dev_std, varianza] = erroriADC(ADC_val, DAC_vals, ADC_mean, ADC_var);
+        function [valore_centrale, dev_std, varianza] = correggiA0(obj, valori)
+            [valore_centrale, dev_std, varianza] = erroriADC(valori, obj.DAC_vals, obj.A0_mean, obj.A0_var + 0.01);
+        end
+        function [valore_centrale, dev_std, varianza] = correggiA1(obj, valori)
+            [valore_centrale, dev_std, varianza] = erroriADC(valori, obj.DAC_vals, obj.A1_mean, obj.A1_var + 0.01);
         end
         
+        function salva(obj, fileName)
+            DAC_vals = obj.DAC_vals;
+            A0_mean = obj.A0_mean;
+            A0_var = obj.A0_var;
+            A1_mean = obj.A1_mean;
+            A1_var = obj.A1_var;
+            
+            save(fileName, 'DAC_vals', 'A0_mean', 'A0_var', 'A1_mean', 'A1_var');
+        end
         
+        function carica(obj, fileName)
+            load(fileName, 'DAC_vals', 'A0_mean', 'A0_var', 'A1_mean', 'A1_var');
+            
+            obj.DAC_vals = DAC_vals;
+            obj.A0_mean = A0_mean;
+            obj.A0_var = A0_var;
+            obj.A1_mean = A1_mean;
+            obj.A1_var = A1_var;
+        end
+        
+        function run(obj, mini)
+            N_onda = 100;
+            N_samples = 1000;
+            PS = 1200;
+            
+            mini.setNSkip(2);
+            mini.setNSamples(N_samples);
+            mini.setPrescaler(PS);
+            
+            % questi sono vetori dei valori medi e varianze per ogni punto sul
+            % partitore
+            % A0_medio;
+            % A0_var;
+            % A1_medio;
+            % A1_var;
+            N = 4096;
+            wb = waitbar(0);
+            for i = 1:N
+                
+                waitbar(i/N);
+                disp(i);
+                
+                funz = @(x) 4095*(i-1)/(N-1);
+                mini.setWaveFun(funz, N_onda);
+                
+                
+                [~, y0, y1]= mini.DACADC();
+                
+                A0_medio_tmp(i) = mean(y0);
+                A0_var_tmp(i) = var(y0);
+                A1_medio_tmp(i) = mean(y1);
+                A1_var_tmp(i) = var(y1);
+            end
+            close(wb);
+            DAC_values = (0:N-1)*4095 / (N-1);
+            
+            obj.DAC_vals = DAC_values;
+            obj.A0_mean = A0_medio_tmp;
+            obj.A0_var = A0_var_tmp;
+            obj.A1_mean = A1_medio_tmp;
+            obj.A1_var = A1_var_tmp;
+        end
     end
     
 end
