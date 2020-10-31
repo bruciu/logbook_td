@@ -6,7 +6,7 @@ mini.calibration();
 
 c = CorrettoreADC;
 c.run(mini);
-c.salva("dati_calibrazione/luca_30MHz_12.5.mat");
+c.salva("dati_calibrazione/serena_120MHz_12_5.mat");
 
 %  30Mhz 2.5
 %  30MHz 6.5
