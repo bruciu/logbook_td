@@ -132,7 +132,7 @@ end
 
 weights = normpdf(ADC_val, ADC_mean, ADC_var);
 media = sum(xx .* weights) / sum(weights);
-varianza = sum(((xx - media).^2 + 0 * ADC_var.^2) .* weights) / sum(weights);
+varianza = sum(((xx - media).^2) .* weights) / sum(weights);
 dev_std = sqrt(varianza);
 end
 
