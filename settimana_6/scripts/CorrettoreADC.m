@@ -56,10 +56,14 @@ classdef CorrettoreADC < handle
             % A1_var;
             N = 4096;
             wb = waitbar(0);
+            tic; t = 1;
+            tmp_factor = 0.2;
             for i = 1:N
-                
-                waitbar(i/N);
-                disp(i);
+                t = t * (1 - tmp_factor) + toc * tmp_factor;
+                waitbar(i/N, wb, sprintf("indice %d / %d (%.1f %%), ETA: %.1f minuti", ...
+                    i, N, i/N*100, (N - i) * t / 60));
+                tic;
+                %disp(i);
                 
                 funz = @(x) 4095*(i-1)/(N-1);
                 mini.setWaveFun(funz, N_onda);
