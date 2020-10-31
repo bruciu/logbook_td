@@ -23,8 +23,8 @@ clear a b
 %  60Mhz 6.5   108ns
 %  60Mhz 12.5  208ns
 %  120Mhz 2.5   21ns
-%  120Mhz 6.5   54ns
-%  120Mhz 12.5 104ns
+%  120Mhz 6.5   54ns <- luca li ha sbagliato
+%  120Mhz 12.5 104ns <- luca li ha sbagliato
 
 
 

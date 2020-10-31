@@ -16,6 +16,8 @@ mini.apri_comunicazione('COM3');
 
 % calibrazione del'ADC, probabilmente irrilevante per gli scopi dell'esercizio
 mini.calibration();
+correttore = CorrettoreADC;
+correttore.carica("dati_calibrazione/luca_120MHz_2.5.mat");
 
 mini.setNSkip(10);
 mini.setNSamples(N_samples);
@@ -26,14 +28,16 @@ mini.setWaveFun(@(x) funz_orig(x, duty, amply), N_onda);
 
 % esegui l'acquisizione
 [t, y0, y1]= mini.DACADC();
+[y0, dy0] = correttore.correggiA0(y0);
+[y1, dy1] = correttore.correggiA1(y1);
 
 % Fattore = 2;
 % y1 = y1 - square((0:(N_samples-1))'/N_samples * 2 * pi, duty) * Fattore;
 
 figure;
 hold on
-plot(t, y0, 'r.-');
-plot(t, y1, 'b.-');
+errorbar(t, y0, dy0, 'r.-');
+errorbar(t, y1, dy1, 'b.-');
 hold off
 grid();
 ylabel("letture [digit]");
@@ -43,8 +47,8 @@ saveas(gcf,'tmp/bode_0.png');
 
 dyy = 1;
 dt = t(2) - t(1);
-[freqs, As0, dAs0, phis0, dphis0] = calcolaFFT_errori(y0, dyy, dt);
-[~    , As1, dAs1, phis1, dphis1] = calcolaFFT_errori(y1, dyy, dt);
+[freqs, As0, dAs0, phis0, dphis0] = calcolaFFT_errori(y0, dy0, dt);
+[~    , As1, dAs1, phis1, dphis1] = calcolaFFT_errori(y1, dy1, dt);
 
 Guadagni = As1 ./ As0;
 dGuadagni = sqrt((dAs1./As0).^2 + (As1 .* (dAs0./(As0.^2)).^2));
