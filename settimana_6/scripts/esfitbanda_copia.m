@@ -5,7 +5,7 @@ guad = A;
 dguad = dA;
 f = freqs;
 
-R2_val = (10e3 / 2)*2;
+R2_val = (10e3 / 2);
 R1_val = (1e3);
 C1_val = (10e-9);
 C2_val = (68e-9);
@@ -20,7 +20,7 @@ Z3a = @(C1, C2, R2, x) 1./(1./(Z2a(C2, R2, x)) + 1./(Z2b(C1)));
 Zeq = @(R1, R2, C1, C2, x) Z3a(C1, C2, R2, x) + R1;
 Z = @(Zreal, Zimag) Zreal + 1i.*Zimag;
 
-para = @(R1, R2, C1, C2, Zimag, Zreal, x) abs(1 + (Zreal + 1i.*Zimag)./ ( (1./(1./(1./(1./(- 1i ./(2.*pi.*x.*C2) + R2) + 1./R2)) + 1./(- 1i ./(2.*pi.*x.*C1)))) + R1));
+para = @(R1, R2, C1, C2, Zimag, Zreal, x) abs(1 + 0.*(Zreal + 1i.*Zimag)./ ( (1./(1./(1./(1./(- 1i ./(2.*pi.*x.*C2) + R2) + 1./R2)) + 1./(- 1i ./(2.*pi.*x.*C1)))) + R1));
 
 %p11 = (R1 + rint) * C1;
 %p12 = (R1 + rint) * C2;
@@ -40,9 +40,9 @@ funztrasf = @ (R1, R2, C1, C2, Zimag, Zreal, x) abs(funztrasf0(R1, R2, C1, C2, x
 funz = @(R1, R2, C1, C2, Zimag, Zreal, x) funztrasf(R1, R2, C1, C2, Zimag, Zreal, x);
 
 fitfun = fittype(funz);
-%X0 = [R1_val, R2_val, C1_val, C2_val, 0, 0];
+X0 = [R1_val, R2_val, C1_val, C2_val, 0, 0];
 %X0 = [0.9987e3, 9.9550e3, coeffvals2(3), coeffvals2(4), 300, 1e-9];
-X0 = [0.9987e3, 9.9550e3, coeffvals2(3), coeffvals2(4), 400, 1e-9];
+%X0 = [0.9987e3, 9.9550e3, coeffvals2(3), coeffvals2(4), 400, 1e-9];
 [fitted_curve, gof] = fit(f', guad', fitfun, "StartPoint", X0, 'Weight', 1./(dguad'));
 coeffvals2 = coeffvalues(fitted_curve);
 errors = confint(fitted_curve);
