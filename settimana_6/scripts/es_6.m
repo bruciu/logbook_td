@@ -1,11 +1,12 @@
 
-N_onda = 1024*4;    % numero di punti per onda
-N_samples = 1024*4*2; % numero di punti acquisiti
-duty = 0.5;       % riferito all'onda quadra
+N_onda = 1024;    % numero di punti per onda
+N_samples = 1024; % numero di punti acquisiti
+duty = 0.1;       % riferito all'onda quadra
 amply = 800;      % ampiezza dell'onda
 
 % funzione per il DAC
-funz_orig = @(x, duty, amply) square(x * 2 * pi - 0.1, duty*100)*amply + 2048;
+square_2 = @(x, duty) mod(x/(2 * pi), 1) < duty / 100;
+funz_orig = @(x, duty, amply) square_2(x * 2 * pi * 4 - 0.1, duty*(1+x.*5).*100)*amply + 2048;
 
 PS = 200;
 
@@ -17,7 +18,7 @@ mini.apri_comunicazione('COM3');
 % calibrazione del'ADC, probabilmente irrilevante per gli scopi dell'esercizio
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("dati_calibrazione/serena_30MHz_12_5.mat");
+correttore.carica("dati_calibrazione/serena_120MHz_2_5.mat");
 
 mini.setNSkip(10);
 mini.setNSamples(N_samples);
@@ -31,8 +32,8 @@ mini.setWaveFun(@(x) funz_orig(x, duty, amply), N_onda);
 [y0, dy0] = correttore.correggiA0(y0);
 [y1, dy1] = correttore.correggiA1(y1);
 
-Fattore = 2;
-y1 = y1 - square((0:(N_samples-1))/N_samples * 2 * pi, duty) * Fattore;
+% Fattore = 2;
+% y1 = y1 - square((0:(N_samples-1))'/N_samples * 2 * pi, duty) * Fattore;
 
 figure;
 hold on
