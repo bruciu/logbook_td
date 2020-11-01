@@ -37,10 +37,12 @@ funztrasf = @ (R1, R2, C1, C2, Zimag, Zreal, x) abs(funztrasf0(R1, R2, C1, C2, x
 %funz = @(p11, p12, p22, b, alpha, x) sqrt(funz_orig(p11, p12, p22, x).^2 + b.^2 + 2 .* b .* funz_orig(p11, p12, p22, x) .* cos(alpha));
 %funz = @(ft, b, r_int, alpha, x) 1./ sqrt(1 + (ft./x).^2) + b*0 + r_int * 0 + alpha * 0
 
-funz = @(R1, R2, C1, C2, Zimag, Zreal, x) funztrasf(R1, R2, C1, C2, Zimag, Zreal, x);
+%funz = @(R1, R2, C1, C2, Zimag, Zreal, x) funztrasf(R1, R2, C1, C2, Zimag, Zreal, x);
+
+funz = @(p11, p12, p22, x)abs((1./(1 + 1./(2.*pi.*x.*1i.*p22))).*(1./(1 + 1i.*x.*p11.*2.*pi + (1i.*2.*pi.*x.*p12)./(1+1j.*2.*pi.*x.*p22))));
 
 fitfun = fittype(funz);
-X0 = [R1_val, R2_val, C1_val, C2_val, 0, 0];
+X0 = [R1_val*C1_val, R1_val*C2_val, R2_val * C2_val];
 %X0 = [0.9987e3, 9.9550e3, coeffvals2(3), coeffvals2(4), 300, 1e-9];
 %X0 = [0.9987e3, 9.9550e3, coeffvals2(3), coeffvals2(4), 400, 1e-9];
 [fitted_curve, gof] = fit(f', guad', fitfun, "StartPoint", X0, 'Weight', 1./(dguad'));
@@ -48,18 +50,18 @@ coeffvals2 = coeffvalues(fitted_curve);
 errors = confint(fitted_curve);
 fprintf("p11 = %.10f +- %.10f\n", coeffvals2(1), (errors(2) - errors(1))/2);
 fprintf("p12 = %.10f\n", coeffvals2(2));
-fprintf("p22real = %.10f\n", coeffvals2(3));
-fprintf("p22imag = %.10f\n", coeffvals2(3));
-coeffvals2(4)
-coeffvals2(5)
-coeffvals2(6)
+fprintf("p22 = %.10f\n", coeffvals2(3));
+%fprintf("p22imag = %.10f\n", coeffvals2(3));
+% coeffvals2(4)
+% coeffvals2(5)
+% coeffvals2(6)
 %plot(f, funz(coeffvals2(1), f), 'b', 'LineWidth', 2);
 figure;
 hold on;
 errorbar(f, guad, dguad, 'k.');
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-plot(f, funz(coeffvals2(1), coeffvals2(2), coeffvals2(3), coeffvals2(4),  coeffvals2(5),  coeffvals2(6), f), 'r');
+plot(f, funz(coeffvals2(1), coeffvals2(2), coeffvals2(3), f), 'r');
 %plot(f, funz(X0(1), X0(2), X0(3), X0(4), X0(5), X0(6), f), 'b');
 hold off
 grid()
