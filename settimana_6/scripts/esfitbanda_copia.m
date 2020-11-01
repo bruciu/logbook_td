@@ -48,9 +48,9 @@ X0 = [R1_val*C1_val, R1_val*C2_val, R2_val * C2_val];
 [fitted_curve, gof] = fit(f', guad', fitfun, "StartPoint", X0, 'Weight', 1./(dguad'));
 coeffvals2 = coeffvalues(fitted_curve);
 errors = confint(fitted_curve);
-fprintf("p11 = %.10f +- %.10f\n", coeffvals2(1), (errors(2) - errors(1))/2);
-fprintf("p12 = %.10f\n", coeffvals2(2));
-fprintf("p22 = %.10f\n", coeffvals2(3));
+fprintf("p11 = %.10f +- %.10f\n", coeffvals2(1), (errors(2, 1) - errors(1, 1))/2);
+fprintf("p12 = %.10f +- %.10f\n", coeffvals2(2), (errors(2, 2) - errors(1, 2))/2);
+fprintf("p22 = %.10f +- %.10f\n", coeffvals2(3), (errors(2, 3) - errors(1, 3))/2);
 %fprintf("p22imag = %.10f\n", coeffvals2(3));
 % coeffvals2(4)
 % coeffvals2(5)
