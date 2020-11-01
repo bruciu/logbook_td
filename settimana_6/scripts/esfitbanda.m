@@ -1,8 +1,8 @@
 %c'è da fare prima es.5 per farlo funzionare
 clear i;
-guad = A;
-dguad = dA;
-f = freqs;
+guad = A(2:end);
+dguad = dA(2:end);
+f = freqs(2:end);
 
 R2_val = (10e3 / 2);
 R1_val = (1e3);
@@ -33,9 +33,9 @@ set(gca, 'YScale', 'log')
 grid()
 xlabel("Frequenza [Hz]")
 ylabel("Guadagno")
-saveas(gcf,'tmp/provaes15.png');
 legend('dati', 'fit')
 grid()
+saveas(gcf,'tmp/provaes15.png');
 hold off;
 
 

@@ -1,7 +1,7 @@
 %c'è da fare prima es.5 per farlo funzionare
-guad = A;
-dguad = dA;
-f = freqs;
+guad = A(2:end);
+dguad = dA(2:end);
+f = freqs(2:end);
 
 funz = @(ft,  x) 1./sqrt(1 + (x./ft).^2);
 fitfun = fittype(funz);
@@ -23,9 +23,9 @@ set(gca, 'YScale', 'log')
 grid()
 xlabel("Frequenza [Hz]")
 ylabel("Guadagno")
-saveas(gcf,'tmp/provaes15.png');
 legend('dati', 'fit')
 grid()
+saveas(gcf,'tmp/provaes15.png');
 hold off;
 
 
