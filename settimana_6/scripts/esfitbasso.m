@@ -4,24 +4,17 @@ dguad = dA;
 f = freqs;
 
 funz = @(ft,  x) 1./sqrt(1 + (x./ft).^2);
-
 fitfun = fittype(funz);
-%X0 = [1/(2*pi*1e3*10e-9), 0, 0, 0];
-%X0 = [1/(2*pi*1e3*10e-9), 0];
-X0 = [1/(2*pi*1e3*10e-9)];
+X0 = 1/(2*pi*1e3*10e-9);
 [fitted_curve, gof] = fit(f', guad', fitfun, "StartPoint", X0, 'Weight', 1./(dguad'));
 coeffvals2 = coeffvalues(fitted_curve);
 errors = confint(fitted_curve);
 fprintf("ft = %.10f +- %.10f\n", coeffvals2(1), (errors(2) - errors(1))/2);
-%fprintf("b = %.10f", coeffvals2(2));
-%fprintf("q = %.10f\n", coeffvals2(3));
-%plot(f, funz(coeffvals2(1), f), 'b', 'LineWidth', 2);
 figure;
 hold on;
 errorbar(f, guad, dguad, 'k.');
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-%plot(f, funz(coeffvals2(1), coeffvals2(2), coeffvals2(3), coeffvals2(4), f), 'r');
 plot(f, funz(coeffvals2(1), f), 'r');
 hold off
 grid()
