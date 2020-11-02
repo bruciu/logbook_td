@@ -43,6 +43,10 @@ fasi1 = zeros(1,N);
 dfasi1 = zeros(1,N);
 ampli1 = zeros(1,N);
 dampli1 = zeros(1,N);
+mod0 = zeros(1,N);
+mod1 = zeros(1,N);
+dmod0 = zeros(1,N);
+dmod1 = zeros(1,N);
 
 figure;
 for ii = 1:N
@@ -68,7 +72,7 @@ for ii = 1:N
     fasi1(ii) = phis1(jmax);
     dfasi1(ii) = dphis1(jmax);
     ampli1(ii) = maxA1;
-    dampli1(ii) = dAs1(jmax);
+    dampli1(ii) = dAs1(jmax); 
 end
 
 guad = ampli1./ampli0;
