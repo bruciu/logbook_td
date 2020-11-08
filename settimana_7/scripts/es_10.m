@@ -16,9 +16,9 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 %mini.setPrescaler(200);
 
-N = 10;
+N = 50;
 
-PSrange = [80, 120e2];
+PSrange = [80, 200e2];
 PSrange = linspace(PSrange(1), PSrange(2), N);
 f = logspace(log10(60e6/(max(PSrange)*N_onda)), log10(120e6/(min(PSrange)*N_onda)), numel(PSrange));
 PSrange = 60e6./(f*N_onda);
