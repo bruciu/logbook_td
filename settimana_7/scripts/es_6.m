@@ -5,7 +5,7 @@ mini.apri_comunicazione('COM3');
 % calibrazione del'ADC, probabilmente irrilevante per gli scopi dell'esercizio
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_30MHz_12_5.mat");
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_30MHz_12.5.mat");
 
 N_onda = 1000;
 N_samples = N_onda * 5;
@@ -14,7 +14,7 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 mini.setPrescaler(200);
 
-A = 14;
+A = 100;
 
 % imposta la funzione
 mini.setWaveFun(@(x) sin(x * 2 * pi) * A + 2048, N_onda);
@@ -29,11 +29,11 @@ mini.setWaveFun(@(x) sin(x * 2 * pi) * A + 2048, N_onda);
 
 [~, max_i] = max(A1);
 
-fprintf("%f +- %f\n", A0(max_i) / A1(max_i), sqrt((dA0(max_i) / A1(max_i)).^2 + (dA1(max_i).*A0(max_i) / (A1(max_i)).^2).^2))
+fprintf("%f +- %f\n", A1(max_i) / A0(max_i), sqrt((dA1(max_i) / A0(max_i)).^2 + (dA0(max_i).*A1(max_i) / (A0(max_i)).^2).^2))
 
 hold on
-plot(t, y1, '.-')
 plot(t, y0, '.-')
+plot(t, y1, '.-')
 grid();
 xlabel("tempo [s]");
 ylabel("letture ADC [digit]");
