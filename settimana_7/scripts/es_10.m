@@ -57,7 +57,6 @@ for i = 1:N
     % trova massimo
     [~, max_i] = max(A0);
     
-    f(i) = frequenze(max_i);
     As(i) = A1(max_i)/A0(max_i);
     dAs(i) = err_rapp(A1(max_i), A0(max_i), dA1(max_i), dA0(max_i));
 end
