@@ -4,11 +4,13 @@ err_rapp = @(a, b, da, db) sqrt((da/b)^2 + (db * a/(b^2))^2);
 mini = Nucleo;
 mini.apri_comunicazione('COM3');
 
+freq_ADC = 60e6;
+
 % calibrazione del'ADC, probabilmente irrilevante per gli scopi dell'esercizio
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_6.5.mat");
-mini.freq = 60e6;
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_12.5.mat");
+mini.freq = freq_ADC;
 
 N_onda = 100;
 N_samples = N_onda * 10;
@@ -17,16 +19,17 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 %mini.setPrescaler(200);
 
-N = 50;
+N = 10;
 
-PSrange = [80, 200e2];
+PSrange = [80*2, 200e2];
 PSrange = linspace(PSrange(1), PSrange(2), N);
-f = logspace(log10(60e6/(max(PSrange)*N_onda)), log10(120e6/(min(PSrange)*N_onda)), numel(PSrange));
-PSrange = 60e6./(f*N_onda);
+
+f = logspace(log10(freq_ADC/(max(PSrange)*N_onda)), log10(freq_ADC/(min(PSrange)*N_onda)), numel(PSrange));
+PSrange = freq_ADC./(f*N_onda);
 PSrange = round(PSrange);
 PS_vals = PSrange;
 
-ftrig = 60e6 ./ PSrange;
+ftrig = freq_ADC ./ PSrange;
 f = ftrig ./N_onda;
 
 A = 500;
