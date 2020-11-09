@@ -7,6 +7,7 @@ R1_val = 1e3;
 C1_val = 10e-9;
 C2_val = 68e-9;
 
+figure;
 funz = @(fti, ftd, x) 1./sqrt((1 + (x./fti).^2).*(1 + (ftd./x).^2));
 fitfun = fittype(funz);
 X0 = [1./(2*pi*R1_val*C1_val), 1./(2*pi*R2_val*C2_val)];%
@@ -26,7 +27,7 @@ legend('dati', 'fit', 'Location','northwest')
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
 grid()
-plot(freqs, funz(X0(1), X0(2), freqs), 'b');
+%plot(freqs, funz(X0(1), X0(2), freqs), 'b');
 hold off
 saveas(gcf,'tmp/provaes10.png');
 hold off;
