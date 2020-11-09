@@ -4,7 +4,7 @@ err_rapp = @(a, b, da, db) sqrt((da/b)^2 + (db * a/(b^2))^2);
 mini = Nucleo;
 mini.apri_comunicazione('COM3');
 
-freq_ADC = 60e6;
+freq_ADC = 120e6;
 
 % calibrazione del'ADC, probabilmente irrilevante per gli scopi dell'esercizio
 mini.calibration();
@@ -19,9 +19,9 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 %mini.setPrescaler(200);
 
-N = 10;
+N = 100;
 
-PSrange = [80*2, 200e2];
+PSrange = [100, 200e2];
 PSrange = linspace(PSrange(1), PSrange(2), N);
 
 f = logspace(log10(freq_ADC/(max(PSrange)*N_onda)), log10(freq_ADC/(min(PSrange)*N_onda)), numel(PSrange));
@@ -49,12 +49,13 @@ for i = 1:N
     [y0, dy0] = correttore.correggiA0(y0);
     [y1, dy1] = correttore.correggiA1(y1);
     
-    [~, A0, dA0, phis0, dphis0] = calcolaFFT_errori(y0 - mean(y0), dy0, t(2) - t(1), 100);
+    [frequenze, A0, dA0, phis0, dphis0] = calcolaFFT_errori(y0 - mean(y0), dy0, t(2) - t(1), 100);
     [~, A1, dA1, phis1, dphis1] = calcolaFFT_errori(y1 - mean(y1), dy1, t(2) - t(1), 100);
     
     % trova massimo
     [~, max_i] = max(A0);
     
+    f(i) = frequenze(max_i);
     As(i) = A1(max_i)/A0(max_i);
     dAs(i) = err_rapp(A1(max_i), A0(max_i), dA1(max_i), dA0(max_i));
 end
@@ -65,9 +66,9 @@ set(gca, "YScale", 'log')
 grid();
 figure;
 
-guad = As(2:end);
-dguad = dAs(2:end);
-freqs = f(2:end);
+guad = As;
+dguad = dAs;
+freqs = f;
 
 R2_val = (10e3)/2;
 R1_val = 1e3;
