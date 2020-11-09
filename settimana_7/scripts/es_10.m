@@ -8,6 +8,7 @@ mini.apri_comunicazione('COM3');
 mini.calibration();
 correttore = CorrettoreADC;
 correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_6.5.mat");
+mini.freq = 60e6;
 
 N_onda = 100;
 N_samples = N_onda * 10;

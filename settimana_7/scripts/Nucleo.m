@@ -8,6 +8,8 @@ classdef Nucleo < handle
         m_nSkip = 0;
         m_prescaler = 0;
         m_nSamples = 0;
+        
+        freq = 120e6;
     end
     
     methods
@@ -166,9 +168,9 @@ classdef Nucleo < handle
         end
         % ================================
         function [value] = setPrescaler(obj, value)
-            if (value < 120)
-                warning("prescaler deve essere 120 o maggiore")
-            end
+%             if (value < 120)
+%                 warning("prescaler deve essere 120 o maggiore")
+%             end
             
             obj.assertOpen();
             
@@ -202,7 +204,7 @@ classdef Nucleo < handle
             yy0 = mod(yy, 65536);
             yy1 = (yy - yy0) / 65536;
             
-            tt = (0:(numel(yy)-1)) * obj.m_prescaler/120e6 ;
+            tt = (0:(numel(yy)-1)) * obj.m_prescaler/obj.freq ;
         end
         
         function nVals = setWaveValues(obj, values)
@@ -231,7 +233,7 @@ classdef Nucleo < handle
             obj.setDAC(true);
             obj.setADC(true);
             
-            tempo_attesa = (obj.m_prescaler / 120e6) * obj.m_nSamples *...
+            tempo_attesa = (obj.m_prescaler / obj.freq) * obj.m_nSamples *...
                 (obj.m_nSkip + 1);
             tempo_attesa = tempo_attesa * 1.5 + 0.01;
             pause(tempo_attesa);
