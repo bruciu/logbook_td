@@ -1,3 +1,5 @@
+clear all;
+
 err_rapp = @(a, b, da, db) sqrt((da/b)^2 + (db * a/(b^2))^2);
 
 % crea l'oggetto che rappresenta la scheda
@@ -90,7 +92,7 @@ set(gca, 'YScale', 'log')
 plot(freqs, funz(coeffvals2(1), coeffvals2(2), freqs), 'r');
 xlabel("Frequenza [Hz]")
 ylabel("Guadagno")
-legend('dati', 'fit')
+legend('dati', 'fit', 'Location','northwest')
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
 grid()
