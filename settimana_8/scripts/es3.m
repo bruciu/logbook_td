@@ -10,7 +10,7 @@ plot(w, y)
 ylim([min(y), max(y)]);
 xlabel("$\omega$ [$rad^{-1}$]", 'Interpreter', 'Latex')
 ylabel("Loop Gain G")
-legend('$G(\omega) = \frac{A(\omega)}{1 + A(\omega) \beta}$', 'Interpreter', 'Latex', 'Fontsize', 12)
+legend('$G(\omega) = \frac{A(\omega)}{1 + A(\omega) \beta}$', 'Interpreter', 'Latex', 'Fontsize', 12, 'Location', 'northwest')
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
 grid()
