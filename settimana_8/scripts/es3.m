@@ -2,8 +2,8 @@ R1 = 10e3;
 R2 = 100;
 GBP = 2.8e6;
 w = linspace(10^4, 10^8, 1000);
-tau = 1/(2*pi*GBP)
 A0 = 10^(110/20);
+tau = A0/(2*pi*GBP)
 Guad = @(x) GuadagnoG(beta(R1, R2), A0./(1 + 1i.*x.*tau));
 y = abs(Guad(w));
 plot(w, y)
