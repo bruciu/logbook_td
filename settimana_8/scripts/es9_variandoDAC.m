@@ -1,7 +1,7 @@
 % tensioni = 0;
 % frequenze = 0;
 % dfrequenze = 0;
-MA = 100;
+MA = 1000;
 Vplus = 0;
 Vminus = 0;
 dVrange = 0;
@@ -12,12 +12,14 @@ C1 = 10.9e-9;
 
 
 for k = 1:MA
-    %es_9_pervoltaggi;
+    k
+    
+    es_9_pervoltaggi;
     close all;
     
     tensioni(k) = (4095/(MA-1))*(k-1);
-    %frequenze(k) = f;
-    %dfrequenze(k) = df;
+    frequenze(k) = f;
+    dfrequenze(k) = df;
     
     Vplus(k) = R1/(R1 + R2)* (4095 - tensioni(k)/2) + tensioni(k) /2;
     Vminus(k) = R1/(R1 + R2)* tensioni(k)/2;
@@ -44,4 +46,4 @@ hold off;
 
 
 
-%save("dV_freq_2.mat", 'tensioni', 'frequenze', 'dfrequenze', 'periodi');
+save("dV_freq_3.mat", 'tensioni', 'frequenze', 'dfrequenze', 'periodi');
