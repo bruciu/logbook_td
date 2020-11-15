@@ -1,13 +1,13 @@
-% tensioni = 0;
-% frequenze = 0;
-% dfrequenze = 0;
-MA = 1000;
+tensioni = 0;
+frequenze = 0;
+dfrequenze = 0;
+MA = 100;
 Vplus = 0;
 Vminus = 0;
 dVrange = 0;
 R1 = 1.1e3;
 R2 = 1e3;
-C1 = 10.9e-9;
+C1 = 10e-9;
 
 
 
@@ -22,7 +22,7 @@ for k = 1:MA
     dfrequenze(k) = df;
     
     Vplus(k) = R1/(R1 + R2)* (4095 - tensioni(k)/2) + tensioni(k) /2;
-    Vminus(k) = R1/(R1 + R2)* tensioni(k)/2;
+    Vminus(k) = R2/(R1 + R2)* tensioni(k)/2;
     dVrange(k) =  Vplus(k) - Vminus(k);
     %pause(10);
     
@@ -46,4 +46,4 @@ hold off;
 
 
 
-save("dV_freq_3.mat", 'tensioni', 'frequenze', 'dfrequenze', 'periodi');
+%save("dV_freq_3.mat", 'tensioni', 'frequenze', 'dfrequenze', 'periodi');
