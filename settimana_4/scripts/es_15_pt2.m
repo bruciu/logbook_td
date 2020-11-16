@@ -48,8 +48,9 @@ xlabel("Frequenza [Hz]");
 ylabel("Ampiezze FFT [digit] (A0)");
 set(gca, "YScale", "log");
 %set(gca, "XScale", "log");
-figure;
+
 saveas(gcf, "tmp/es_15_pt2_fft0.png")
+figure;
 g = area(freqs1(2:end), As1(2:end));
 g.FaceColor = 'b';
 g.EdgeColor = 'b';
@@ -59,9 +60,9 @@ xlabel("Frequenza [Hz]");
 ylabel("Ampiezze FFT [digit] (A1)");
 set(gca, "YScale", "log");
 %set(gca, "XScale", "log");
-figure;
-saveas(gcf, "tmp/es_15_pt2_fft1.png")
 
+saveas(gcf, "tmp/es_15_pt2_fft1.png")
+figure;
 
 g = area(freqs0(2:end), As0(2:end));
 g.FaceColor = 'b';
@@ -72,8 +73,8 @@ xlabel("Frequenza [Hz]");
 ylabel("Ampiezze FFT [digit] (A0)");
 set(gca, "YScale", "log");
 set(gca, "XScale", "log");
-figure;
 saveas(gcf, "tmp/es_15_pt2_fft0_bilog.png")
+figure;
 g = area(freqs1(2:end), As1(2:end));
 g.FaceColor = 'b';
 g.EdgeColor = 'b';
@@ -83,9 +84,8 @@ xlabel("Frequenza [Hz]");
 ylabel("Ampiezze FFT [digit] (A1)");
 set(gca, "YScale", "log");
 set(gca, "XScale", "log");
-figure;
 saveas(gcf, "tmp/es_15_pt2_fft1_bilog.png")
-
+figure;
 close all;
 trasfAs0 = abs(funz_trasf(freqs0)) .* As0;
 hold on;
