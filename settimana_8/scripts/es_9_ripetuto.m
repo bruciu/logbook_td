@@ -15,3 +15,10 @@ for k = 1:100
 end
 
 save("tempi_freq_2.mat", 'tempi', 'frequenze', 'dfrequenze');
+
+errorbar((tempi - tempi(1))* 24 * 60 * 60, frequenze, dfrequenze, '+k-')
+grid()
+xlabel("tempo di acquisizione [s]")
+ylabel("frequenze principali [Hz]")
+legend("dati")
+
