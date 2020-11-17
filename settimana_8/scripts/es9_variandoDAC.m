@@ -1,25 +1,25 @@
-tensioni = 0;
-frequenze = 0;
-dfrequenze = 0;
+% tensioni = 0;
+% frequenze = 0;
+% dfrequenze = 0;
 MA = 100;
 Vplus = 0;
 Vminus = 0;
 dVrange = 0;
 R1 = 1.1e3;
 R2 = 1e3;
-C1 = 10e-9;
+C1 = 10.5e-9;
 
 
 
 for k = 1:MA
-    k
-    
-    es_9_pervoltaggi;
-    close all;
+%     k
+%     
+%     es_9_pervoltaggi;
+%     close all;
     
     tensioni(k) = (4095/(MA-1))*(k-1);
-    frequenze(k) = f;
-    dfrequenze(k) = df;
+%     frequenze(k) = f;
+%     dfrequenze(k) = df;
     
     Vplus(k) = R1/(R1 + R2)* (4095 - tensioni(k)/2) + tensioni(k) /2;
     Vminus(k) = R2/(R1 + R2)* tensioni(k)/2;
