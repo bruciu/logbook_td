@@ -3,7 +3,7 @@ mini = Nucleo;
 mini.apri_comunicazione('COM3');
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/serena_60MHz_12_5.mat");
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_12.5.mat");
 
 PS = 800;
 
@@ -27,7 +27,22 @@ grid();
 xlabel("tempo [s]")
 ylabel("letture ADC")
 
-[G, xx, yy_smooth] = fourier_disturbi(y0, t(2)-t(1), true);
+[G, xx, yy_smooth] = fourier_disturbi(y0, t(2)-t(1), true, 20);
+
+figure;
+[f1, A1] = myFFT(y0 - mean(y0), t(2)-t(1));
+[f2, A2] = myFFT(yy_smooth, xx(2)-xx(1));
+hold on;
+stem(f1, A1, 'rd')
+stem(f2, A2, 'bd')
+set(gca, "YScale", 'log');
+xlim([0, 2.5e4])
+currYlim = ylim;
+currYlim(1) = 1e-3;
+%currYlim(2) = 1e2;
+xline(calcolaFmax(y0 - mean(y0), t(2)-t(1)), 'k');
+ylim(currYlim)
+hold off;
 
 % [f, df] = calcolaFmax(y0 - mean(y0), t(2)-t(1));
 % fprintf("%s : freq = %f +- %f\n", datestr(now,'HH:MM:SS.FFF'), f, df);
