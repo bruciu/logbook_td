@@ -28,6 +28,9 @@ for i = 1:ceil(numel(signal_fft)/2)
     end
 end
 
+G = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
+G = sqrt(G / (2*abs(signal_fft(max_index)).^2));
+
 yy_smooth = ifft(signal_fft);
 
 signal_fft(max_index) = signal_fft(max_index) ./ amplificazione;
@@ -53,7 +56,5 @@ if bool_grafico
     hold off
 end
 
-G = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
-G = sqrt(G / (2*abs(signal_fft(max_index)).^2));
 end
 
