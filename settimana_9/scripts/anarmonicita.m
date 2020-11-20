@@ -3,7 +3,7 @@ mini = Nucleo;
 mini.apri_comunicazione('COM3');
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_12.5.mat");
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/serena_60MHz_12_5.mat");
 
 PS = 800;
 
@@ -27,7 +27,9 @@ grid();
 xlabel("tempo [s]")
 ylabel("letture ADC")
 
-[G, xx, yy_smooth] = fourier_disturbi(y0, t(2)-t(1), true, 20);
+[G, xx, yy_smooth, dG] = fourier_disturbi(y0, t(2)-t(1), true, 20);
+fprintf("G = %f; G_2 = %f\n", G, (dG));
+close all;
 
 figure;
 [f1, A1] = myFFT(y0 - mean(y0), t(2)-t(1));
@@ -42,6 +44,10 @@ currYlim(1) = 1e-3;
 %currYlim(2) = 1e2;
 xline(calcolaFmax(y0 - mean(y0), t(2)-t(1)), 'k');
 ylim(currYlim)
+grid()
+xlabel("Frequenze [Hz]")
+ylabel("Ampiezze [digit]")
+legend('FFT originale','FFT punti selezionati','Fmax', 'Location', 'NorthEast');
 hold off;
 
 % [f, df] = calcolaFmax(y0 - mean(y0), t(2)-t(1));
@@ -59,13 +65,33 @@ hold off;
 % set(gca, "YScale", "log");
 % saveas(gcf, "tmp/es_9_fft.png")
 
-
-
-
-
-
-
-
+% 
+% G = G_vero + |rumore|^2
+% G_vero = G - |rumore|^2
+% dG_vero = d|rumore|^2
+% 
+% 
+% G = sum[(y - y_teorico)^2] = sum[(y_segnale + y_rumore - y_teorico)^2]
+% E[G] = E[(Dy - y_r)^2] = E[Dy^2 + 2*Dy*y_r + y_r^2]
+% = E[Dy^2] + 2*E[Dy*y_r] + E[y_r^2] = G_ver + |rumore|^2
+% 
+% E[x^2] = int(x^2*k*e^-(x^2)) = ... = x^2
+% 
+% var = - (E[G])^2 + E[G^2] = G_vero + |errore|^2 + E[(y_segnale + y_rumore - y_teorico)^4]
+% 
+% %G = sum[(y_segnale + y_rumore - y_teorico)^2] = sum[(y_segnale - y_teorico)^2]  + y_rumore 2* sum[(y_segnale - y_teorico)]...
+%     %+ (1/2) y_rumore^2 * 2 * N_punti
+% 
+% yy = sin(x) + rnadn(1)
+% 
+% 
+% 
+% % G = sqrt(sum[(y_segnale + y_rumore - y_teorico)^2])
+% 
+% % E_G = E[sqrt(sum[(y_segnale + y_rumore - y_teorico)^2])] = sqrt(E[sum[(y_segnale + y_rumore - y_teorico)^2]])
+% % = sqrt(E[Dy^2] + E[y_r^2])
+% 
+% %var_G = E(sum[(y_segnale + y_rumore - y_teorico)^2]) - E[Dy^2] - E[y_r^2] = 
 
 
 

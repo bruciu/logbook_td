@@ -1,4 +1,4 @@
-function [G, xx, yy_smooth] = fourier_disturbi(yy, dt, bool_grafico,  amplificazione)
+function [G, xx, yy_smooth, dG] = fourier_disturbi(yy, dt, bool_grafico,  amplificazione)
 %FOURIER_DISTURBI Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -28,8 +28,23 @@ for i = 1:ceil(numel(signal_fft)/2)
     end
 end
 
-G = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
-G = sqrt(G / (2*abs(signal_fft(max_index)).^2));
+Gv = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
+G = sqrt(Gv / (2*abs(signal_fft(max_index)).^2));
+
+% -----
+yy_smooth = real(ifft(signal_fft));
+
+tmp = 1:numel(signal_fft);
+indici_pringipali = (tmp == max_index) | (tmp == (numel(signal_fft) - max_index + 2));
+signal_fft_princ = signal_fft .* indici_pringipali;
+sinusoide = ifft(signal_fft_princ);
+dy = yy_smooth * 0 + 1;
+Ga = sum((yy_smooth - sinusoide).^2) - sum(dy.^2)/N_onde;
+Ga = Ga / sum(sum(sinusoide.^2));
+dG = sqrt(Ga);
+% -----
+
+
 
 yy_smooth = ifft(signal_fft);
 
