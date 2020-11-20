@@ -54,6 +54,6 @@ if bool_grafico
 end
 
 G = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
-G = G / (2*abs(signal_fft(max_index)).^2);
+G = sqrt(G / (2*abs(signal_fft(max_index)).^2));
 end
 
