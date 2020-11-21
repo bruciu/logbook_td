@@ -3,7 +3,7 @@ mini = Nucleo;
 mini.apri_comunicazione('COM3');
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/serena_60MHz_12_5.mat");
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_12.5.mat");
 
 PS = 800;
 
@@ -15,9 +15,12 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 mini.setWaveFun(@(x) 0, N_onda);
 
-[t, y0] = mini.DACADC();
+[t, y0, y1] = mini.DACADC();
 tempo_acquis = now;
 [y0, dy0] = correttore.correggiA0(y0);
+
+y0 = sin(t *1.4603e+03 * 2 * pi ) * 100 + ...
+    sin(t *1.4603e+03 * 2 * pi * 3) * 0 + randn(1, numel(t))*1;
 
 figure;
 hold on;
@@ -27,9 +30,9 @@ grid();
 xlabel("tempo [s]")
 ylabel("letture ADC")
 
-[G, xx, yy_smooth, dG] = fourier_disturbi(y0, t(2)-t(1), true, 20);
-fprintf("G = %f; G_2 = %f\n", G, (dG));
-close all;
+[G, xx, yy_smooth, dG] = fourier_disturbi(y0, t(2)-t(1), true, 5);
+fprintf("G = %f; G_2 = %f\n", G, ((dG)));
+%close all;
 
 figure;
 [f1, A1] = myFFT(y0 - mean(y0), t(2)-t(1));

@@ -31,6 +31,8 @@ end
 Gv = sum(abs(signal_fft).^2) - 2*abs(signal_fft(max_index).^2);
 G = sqrt(Gv / (2*abs(signal_fft(max_index)).^2));
 
+
+
 % -----
 yy_smooth = real(ifft(signal_fft));
 
@@ -39,9 +41,20 @@ indici_pringipali = (tmp == max_index) | (tmp == (numel(signal_fft) - max_index 
 signal_fft_princ = signal_fft .* indici_pringipali;
 sinusoide = ifft(signal_fft_princ);
 dy = yy_smooth * 0 + 1;
-Ga = sum((yy_smooth - sinusoide).^2) - sum(dy.^2)/N_onde;
+x_i = yy - yy_smooth;
+delta_y = yy_smooth - sinusoide;
+% delta_y =(max(yy_smooth)).*( yy_smooth ./(max(yy_smooth)) - sinusoide ./(max(sinusoide)));
+Ga = abs(sum((yy - sinusoide).^2) - sum(x_i.^2) - 2*sum(delta_y .* x_i));
 Ga = Ga / sum(sum(sinusoide.^2));
 dG = sqrt(Ga);
+%dG = mean(sum((yy - sinusoide).^4)) - 
+
+corr_media = 0
+for ii = 1:numel(signal_fft)
+    for jj = 1:numel(signal_fft)
+        corr_media = corr_media + (sum((yy(ii) - yy_smooth(ii)).*())) 
+    end
+end
 % -----
 
 
