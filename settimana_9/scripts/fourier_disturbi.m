@@ -44,10 +44,11 @@ dy = yy_smooth * 0 + 1;
 x_i = yy - yy_smooth;
 delta_y = yy_smooth - sinusoide;
 % delta_y =(max(yy_smooth)).*( yy_smooth ./(max(yy_smooth)) - sinusoide ./(max(sinusoide)));
-Ga = abs(sum((yy - sinusoide).^2) - sum(x_i.^2) - 2*sum(delta_y .* x_i));
+Ga = abs(sum((yy_smooth - sinusoide).^2) - sum(dy.^2)/N_onde);% - 2*sum(delta_y .* x_i));
 Ga = Ga / sum(sum(sinusoide.^2));
 dG = sqrt(Ga);
 %dG = mean(sum((yy - sinusoide).^4)) - 
+
 
 % corr_media = 0;
 % for ii = 1:numel(signal_fft)

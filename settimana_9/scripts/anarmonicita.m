@@ -1,3 +1,4 @@
+clear all;
 
 mini = Nucleo;
 mini.apri_comunicazione('COM3');
@@ -15,12 +16,26 @@ mini.setNSkip(10);
 mini.setNSamples(N_samples);
 mini.setWaveFun(@(x) 0, N_onda);
 
+%tempo_acquis = now;
+
 [t, y0, y1] = mini.DACADC();
-tempo_acquis = now;
 [y0, dy0] = correttore.correggiA0(y0);
 
-y0 = sin(t *1.4603e+03 * 2 * pi ) * 100 + ...
-    sin(t *1.4603e+03 * 2 * pi * 3) * 0 + randn(1, numel(t))*1;
+%ww1
+wb = waitbar(0, "attendi");
+N = 10;
+for i = 1:N
+    waitbar(i/N, wb, sprintf("attendi %d/%d", i, N));
+%     y0 = sin(t *1.4603e+03 * 2 * pi ) * 100 + ...
+%         sin(t *1.4603e+03 * 2 * pi * 3) * 10 + randn(1, numel(t))*1;
+    [t, y0, y1] = mini.DACADC();
+    [y0, dy0] = correttore.correggiA0(y0);
+    [G, xx, yy_smooth] = fourier_disturbi(y0, t(2)-t(1));
+    %fprintf("G = %f", G);
+    tmp(i) = G;
+end
+close(wb);
+fprintf("G = %.8f +- %.8f\n", mean(tmp), sqrt(var(tmp))/sqrt(N));
 
 figure;
 hold on;
@@ -30,9 +45,9 @@ grid();
 xlabel("tempo [s]")
 ylabel("letture ADC")
 
-[G, xx, yy_smooth, dG] = fourier_disturbi(y0, t(2)-t(1), true, 5);
-fprintf("G = %f; G_2 = %f\n", G, ((dG)));
-%close all;
+[G, xx, yy_smooth, dG] = fourier_disturbi(y0, t(2)-t(1), true, 20);
+% fprintf("G = %f; G_2 = %f\n", G, ((dG)));
+% close all;
 
 figure;
 [f1, A1] = myFFT(y0 - mean(y0), t(2)-t(1));
