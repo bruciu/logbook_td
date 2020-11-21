@@ -37,6 +37,9 @@ end
 close(wb);
 fprintf("G = %.8f +- %.8f\n", mean(tmp), sqrt(var(tmp))/sqrt(N));
 
+[f_max, df_max] = calcolaFmax(y0 - mean(y0), t(2)-t(1));
+fprintf("f = %f +- %f\n", f_max, df_max);
+
 figure;
 hold on;
 errorbar(t, y0, dy0, 'b.-')
