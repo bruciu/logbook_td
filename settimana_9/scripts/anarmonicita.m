@@ -4,7 +4,7 @@ mini = Nucleo;
 mini.apri_comunicazione('COM3');
 mini.calibration();
 correttore = CorrettoreADC;
-correttore.carica("../../settimana_6/scripts/dati_calibrazione/luca_60MHz_12.5.mat");
+correttore.carica("../../settimana_6/scripts/dati_calibrazione/serena_60MHz_12_5.mat");
 
 PS = 800;
 
