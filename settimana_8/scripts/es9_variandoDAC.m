@@ -24,7 +24,7 @@ for k = 1:MA
     Vplus(k) = R1/(R1 + R2)* (4095 - tensioni(k)/2) + tensioni(k) /2;
     Vminus(k) = R2/(R1 + R2)* tensioni(k)/2;
     dVrange(k) =  Vplus(k) - Vminus(k);
-    %pause(10);
+    %pause(10); 
     
 end
 

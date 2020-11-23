@@ -2,8 +2,9 @@ tempi = 0;
 frequenze = 0;
 dfrequenze = 0;
 
-for k = 1:100
+for k = 1:300
     es_9;
+    disp(k);
     close all;
     
     tempi(k) = tempo_acquis;
@@ -14,7 +15,7 @@ for k = 1:100
     
 end
 
-save("tempi_freq_2.mat", 'tempi', 'frequenze', 'dfrequenze');
+save("tempi_freq.mat", 'tempi', 'frequenze', 'dfrequenze');
 
 errorbar((tempi - tempi(1))* 24 * 60 * 60, frequenze, dfrequenze, '+k-')
 grid()
