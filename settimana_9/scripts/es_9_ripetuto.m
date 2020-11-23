@@ -2,8 +2,9 @@ tempi = 0;
 frequenze = 0;
 dfrequenze = 0;
 
-for k = 1:10
+for k = 1:300
     es_9;
+    disp(k);
     close all;
     
     tempi(k) = tempo_acquis;
