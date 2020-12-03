@@ -1,16 +1,15 @@
 classdef Barometro < handle
     properties
         sp
-        SAD
+        SAD = 93;
         SUB
         vals_out
         vals_in
         msg
     end
     methods
-        function obj = I2Cdevice(spname,address)
+        function obj = Barometro(spname)
             obj.sp = serialport(spname,2e6);
-            obj.SAD = address;
             % Facciamo un po' di pulizia...
             obj.sp.writeline('*IDN?');
             pause(0.1);
@@ -21,26 +20,54 @@ classdef Barometro < handle
         function startReading(obj)
             CTRL_REG1 = 0x20;
             CTRL_REG1_val = 0b11100000; % acensionie in modalità 12.5Hz
-            dev.write(CTRL_REG1,[CTRL_REG1_val]);
+            obj.write(CTRL_REG1,[CTRL_REG1_val]);
         end
-        function available(obj)
+        function value = temperatureAvailable(obj)
             STATUS_REG = 0x27;
-            bytes = dev.read(STATUS_REG, 1);
-            byte_val = bytes(1);
+            bytes = obj.read(STATUS_REG, 1);
+            byte_val = uint8(bytes(1));
+            value = bitand(byte_val, 0b00010000) > 0;
         end
-        function [press, temp] = read(obj)
-            
+        function value = pressureAvailable(obj)
+            STATUS_REG = 0x27;
+            bytes = obj.read(STATUS_REG, 1);
+            byte_val = uint8(bytes(1));
+            value = bitand(byte_val, 0b00100000) > 0;
         end
-        function [press, temp] = conversion(obj, press_b, tmp_b)
-            if press_b>2^23
-                press_b = press_b-2^24;
+        function value = available(obj)
+            value = obj.temperatureAvailable() & obj.pressureAvailable();
+        end
+        function [press, temp] = readValue(obj, bool_conv)
+            while(~barometro.available())
             end
-            press = press_b / 4096;
+        
+            if nargin < 2
+                bool_conv = true;
+            end
+            obj.lockfree(true);
+            bytes = obj.read(0x2B + 0x80, 2);
+            tmp_b = bytes(2)*256 + bytes(1);
+            bytes = obj.read(0x28 + 0x80, 3);
+            obj.lockfree(false);
+            press_b = bytes(3)*2^16 + bytes(2)*256 + bytes(1);
             if tmp_b>2^15
                 tmp_b = tmp_b-2^16;
             end
-            tmp = 42.5+tmp_b/480;
-            
+            if press_b>2^23
+                press_b = press_b-2^24;
+            end
+            press = press_b;
+            temp = tmp_b;
+            if bool_conv
+                [press, temp] = obj.conversion(press_b, tmp_b);
+            end
+        end
+        %function [dpress, dtemp] = noise(obj, address)
+        %end
+        function [press, temp] = conversion(obj, press_b, temp_b)
+            press = press_b / 4096;
+            temp = 42.5+temp_b/480;
+        end
         function res = write(obj,SUB,values)
             obj.SUB = SUB;
             command = sprintf('I2CWRITE %d,%d',obj.SAD,obj.SUB);
@@ -71,6 +98,17 @@ classdef Barometro < handle
                 res = str2num(tmp(1:end-1));
             end
             obj.vals_in = res;
+        end
+        function lockfree(obj, val)
+            CTRL_REG1 = 0x20;
+            res = obj.read(CTRL_REG1,1);
+            mask_v_orig = uint8(0b00000100);
+            mask_v = uint8(bitcmp(mask_v_orig));
+            res = bitand(uint8(res), mask_v);
+            if (val)
+                res = bitor(uint8(res), mask_v_orig);
+            end
+            obj.write(CTRL_REG1, [res]);
         end
     end
 end
