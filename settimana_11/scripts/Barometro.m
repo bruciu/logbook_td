@@ -38,7 +38,7 @@ classdef Barometro < handle
             value = obj.temperatureAvailable() & obj.pressureAvailable();
         end
         function [press, temp] = readValue(obj, bool_conv)
-            while(~barometro.available())
+            while(~obj.available())
             end
         
             if nargin < 2
