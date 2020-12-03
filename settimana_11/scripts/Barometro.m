@@ -21,6 +21,10 @@ classdef Barometro < handle
             CTRL_REG1 = 0x20;
             CTRL_REG1_val = 0b11100000; % acensionie in modalità 12.5Hz
             obj.write(CTRL_REG1,[CTRL_REG1_val]);
+            
+            RES_CONF = 0x10;
+            RES_CONF_val = 0b01111010;
+            obj.write(RES_CONF,[RES_CONF_val]);
         end
         function value = temperatureAvailable(obj)
             STATUS_REG = 0x27;
@@ -38,7 +42,7 @@ classdef Barometro < handle
             value = obj.temperatureAvailable() & obj.pressureAvailable();
         end
         function [press, temp] = readValue(obj, bool_conv)
-            while(~barometro.available())
+            while(~obj.available())
             end
         
             if nargin < 2
