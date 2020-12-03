@@ -9,7 +9,7 @@ clear all;
 % oggetto = I2Cdevice(NOMECOM,indirizzochip);
 %
 SAD = 93;
-dev = I2Cdevice('COM5',SAD);
+dev = I2Cdevice('COM3',SAD);
 
 % Sintassi per il metodo "write", che scrive dei valori sul dispositivo I2C
 %

@@ -13,6 +13,7 @@ classdef I2Cdevice < handle
             obj.SAD = address;
             % Facciamo un po' di pulizia...
             obj.sp.writeline('*IDN?');
+            pause(0.1);
             while(obj.sp.NumBytesAvailable>0)
                 obj.sp.readline();
             end
