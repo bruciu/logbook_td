@@ -30,6 +30,9 @@ hold on;
 plot(tempi, pressioni, '.k-');
 plot(tempi, y_smooth, 'r');
 legend("letture", "smooth (5% armoniche)")
+xlabel("tempo [s]")
+ylabel("pressione [mbar]")
+grid()
 hold off;
 
-%save("es_7.mat", "tempi", "pressioni", "temperature");
+save("es_9_Serena_topdown.mat", "tempi", "pressioni", "temperature");
