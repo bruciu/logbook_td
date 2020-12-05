@@ -30,13 +30,13 @@ classdef Barometro < handle
             STATUS_REG = 0x27;
             bytes = obj.read(STATUS_REG, 1);
             byte_val = uint8(bytes(1));
-            value = bitand(byte_val, 0b00010000) > 0;
+            value = bitand(byte_val, 0b00000001) > 0;
         end
         function value = pressureAvailable(obj)
             STATUS_REG = 0x27;
             bytes = obj.read(STATUS_REG, 1);
             byte_val = uint8(bytes(1));
-            value = bitand(byte_val, 0b00100000) > 0;
+            value = bitand(byte_val, 0b00000010) > 0;
         end
         function value = available(obj)
             value = obj.temperatureAvailable() & obj.pressureAvailable();
