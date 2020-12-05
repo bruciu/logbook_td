@@ -29,7 +29,6 @@ classdef Barometro < handle
         function value = temperatureAvailable(obj)
             STATUS_REG = 0x27;
             bytes = obj.read(STATUS_REG, 1);
-            dec2bin(bytes)
             byte_val = uint8(bytes(1));
             value = bitand(byte_val, 0b00000001) > 0;
         end

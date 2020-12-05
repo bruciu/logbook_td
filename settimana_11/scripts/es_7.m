@@ -9,7 +9,7 @@ tempi = [];
 pressioni = [];
 temperature = [];
 
-for i = 1:1000
+for i = 1:200
     disp(i);
     [p, t] = barometro.readValue();
     tempi = [tempi, now];
@@ -18,4 +18,18 @@ for i = 1:1000
 end
 tempi = (tempi - tempi(1))* 24 * 60 * 60;
 
-save("es_7.mat", "tempi", "pressioni", "temperature");
+ft = fft(pressioni);
+for i = 1:ceil(length(ft)/2)
+    if (i/ceil(length(ft)/2) > 0.05)
+        ft(i+1) = 0;
+        ft(end-i+1) = 0;
+    end
+end
+y_smooth = abs(ifft(ft));
+hold on;
+plot(tempi, pressioni, '.k-');
+plot(tempi, y_smooth, 'r');
+legend("letture", "smooth (5% armoniche)")
+hold off;
+
+%save("es_7.mat", "tempi", "pressioni", "temperature");
