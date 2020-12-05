@@ -79,7 +79,14 @@ for ii = 1:10
     fprintf("a = %.10f +- %.10f\n", coeffvals2(1), (errors(2, 1) - errors(1, 1))/2);
     fprintf("b = %.10f +- %.10f\n", coeffvals2(2), (errors(2, 2) - errors(1, 2))/2);
 end
-plot(hmetri, funz(coeffvals2(1), coeffvals2(2), hmetri), 'r');
-errorbar(hmetri, meanppascal, dmeanppascal/2,dmeanppascal/2, h.*0 + 1./100, h.*0 + 1./100, 'kd-');
 
+errorbar(hmetri, meanppascal./100, dmeanppascal./(100.*2),dmeanppascal./(100.*2), h.*0 + 1./100, h.*0 + 1./100, 'k.');
+limits = xlim;
+array = linspace(limits(1), limits(2), 1000);
+plot(array, funz(coeffvals2(1), coeffvals2(2), array)./100, 'r');
+
+grid();
+xlabel("Altezze [m]");
+ylabel("Pressioni medie [mbar]");
+legend('dati', 'fit')
 hold off;
