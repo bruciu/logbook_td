@@ -9,7 +9,7 @@ sm = smussaf(A(:,2), 0.01);
 
 p = A(:,2);
 t = A(:,1);
-h = (1:7).*2 - 2;
+h = (1:7).*1.5 - 1.5;
 meanp(1) = mean(p(4560:4969));
 meanp(2) = mean(p(3952:4421));
 meanp(3) = mean(p(3232:3734));
@@ -40,7 +40,7 @@ errors = confint(fitted_curve);
 fprintf("a = %.10f +- %.10f\n", coeffvals2(1), (errors(2, 1) - errors(1, 1))/2);
 fprintf("b = %.10f +- %.10f\n", coeffvals2(2), (errors(2, 2) - errors(1, 2))/2);
 hold on;
-errorbar(hmetri, meanppascal./100, dmeanppascal./100, 'k.');
+errorbar(hmetri, meanppascal./100, dmeanppascal./100, '-k.');
 limits = xlim;
 array = linspace(limits(1), limits(2), 1000);
 plot(array, funz(coeffvals2(1), coeffvals2(2), array)./100, 'r');
