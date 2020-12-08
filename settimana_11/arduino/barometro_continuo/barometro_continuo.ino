@@ -4,7 +4,7 @@ float PP,TT;
 
 void setup()
 {
-  Serial.begin(2000000);                // - avvia seriale a 2Mbaud
+  Serial.begin(9600);                // - avvia seriale a 2Mbaud
   Wire.begin();                         // - avvia I2C
 
   Wire.beginTransmission((byte) 0x5D);  // Comunicazione su SAD = 0x5D = 93
@@ -42,9 +42,10 @@ void loop()
 
   Serial.print(millis());
   Serial.print("\t");
-  Serial.print(PP);                    // invio dati su seriale
+  Serial.print(PP, 4);                    // invio dati su seriale
   Serial.print("\t");
-  Serial.print(TT);
+  Serial.print(TT, 4
+  );
   Serial.print("\n");
   delay(120);                            // attesa (msec)
 }
