@@ -18,20 +18,6 @@ classdef I2Cdevice < handle
                 obj.sp.readline();
             end
         end
-        function res = write_cmd(obj,SUB)
-            obj.SUB = SUB;
-            command = sprintf('I2CWRITE %d,%d',obj.SAD,obj.SUB);
-            obj.sp.writeline(command);
-            tmp = obj.sp.readline();
-            if (tmp(1)=='E')
-                res = -1;
-                obj.msg = 'KO';
-            else
-                res = length(values);
-                obj.msg = 'Ok';
-                obj.vals_out = values;
-            end
-        end
         function res = write(obj,SUB,values)
             obj.SUB = SUB;
             command = sprintf('I2CWRITE %d,%d',obj.SAD,obj.SUB);
