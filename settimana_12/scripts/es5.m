@@ -2,7 +2,7 @@ clear all
 
 ig = Igrometro('COM3');
 
-N = 10;
+N = 1000;
 uu = [];
 tt = [];
 
@@ -11,9 +11,9 @@ for i = 1:N
     uu = [uu, U];
     tt = [tt, T];
     yyaxis left;
-    plot(tt);
+    plot(tt, '.');
     yyaxis right;
-    plot(uu);
+    plot(uu, '.');
 end
 
 xlabel("numero di lettura");
