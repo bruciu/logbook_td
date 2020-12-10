@@ -2,18 +2,21 @@ clear all
 
 ig = Igrometro('COM3');
 
-N = 1000;
+N = 10000;
 uu = [];
 tt = [];
+tempi = [];
 
+tic;
 for i = 1:N
     [U, T] = ig.readValue();
     uu = [uu, U];
     tt = [tt, T];
+    tempi = [tempi, toc];
     yyaxis left;
-    plot(tt, '.');
+    plot(tempi, tt, '.');
     yyaxis right;
-    plot(uu, '.');
+    plot(tempi, uu, '.');
 end
 
 xlabel("numero di lettura");
