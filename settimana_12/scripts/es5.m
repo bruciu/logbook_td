@@ -2,7 +2,7 @@ clear all
 
 ig = Igrometro('COM3');
 
-N = 1000;
+N = 10000;
 uu = [];
 tt = [];
 
