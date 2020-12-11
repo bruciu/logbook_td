@@ -6,5 +6,6 @@ plot(freqs, As.^2);
 set(gca, "XScale", "log")
 set(gca, "YScale", "log")
 grid();
-xlabel("frequenze [Hz]");
-ylabel("ampiezze quadre");
+xlabel("frequenze [Hz]", 'interpreter', 'latex');
+ylabel("ampiezze$^2$", 'interpreter', 'latex');
+xlim([min(freqs), max(freqs)])
