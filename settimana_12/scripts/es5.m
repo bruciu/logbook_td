@@ -32,3 +32,4 @@ meanT = mean(tt);
 sdvT = sqrt(var(tt));
 meanU = mean(uu);
 sdvU = sqrt(var(uu));
+save("UTSeretazzina2.mat", "tempi", "tt", "uu");
