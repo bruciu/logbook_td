@@ -1,12 +1,14 @@
 clear ig
 
 ig = Igrometro('COM3');
+ig.startReading(0x20, 0x32);
 
-N = 10000;
+N = 500;
 uu = [];
 tt = [];
 tempi = [];
 
+figure;
 tic;
 wb = waitbar(0, "aspetta");
 for i = 1:N
@@ -22,7 +24,7 @@ for i = 1:N
 end
 close(wb);
 
-xlabel("numero di lettura");
+xlabel("tempo [s]");
 yyaxis left;
 ylabel("temperatura [°C]");
 yyaxis right;
@@ -32,4 +34,12 @@ meanT = mean(tt);
 sdvT = sqrt(var(tt));
 meanU = mean(uu);
 sdvU = sqrt(var(uu));
-save("UTSeretazzina2.mat", "tempi", "tt", "uu");
+fprintf("sdv T = %f\n", sdvT);
+fprintf("sdv U = %f\n", sdvU);
+
+
+figure;
+histogram(uu, 100);
+xlabel("umidità [%RH]")
+ylabel("occorrenze")
+
