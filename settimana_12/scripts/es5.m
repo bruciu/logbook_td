@@ -1,8 +1,8 @@
 clear ig
 
-ig = Igrometro('COM3');
+ig = Igrometro('COM5');
 
-N = 10000;
+N = 50000;
 uu = [];
 tt = [];
 tempi = [];
