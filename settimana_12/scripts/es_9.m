@@ -7,3 +7,6 @@ rh = @(x) rh1 + (x - t1).*(rh2 - rh1)./(t2-t1);
 drh = @(x) drh1 + (x - t1).*(drh2 - drh1)./(t2-t1);
 
 rh(t1/2 + t2/2)
+
+rh(meant)
+drh(meant)
