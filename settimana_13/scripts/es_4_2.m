@@ -12,4 +12,12 @@ dev.write(SMPRT_DIV, SMPRT_DIV_val);
 %   scegliamo di dividere il sample rate di
 %   80 (in scala decimale), così di avere una frequneza di campionamento di 100 Hz
 
-[a, om, T] = leggivalues(0b00010000 ,0b00011000, dev, 8192/2, 16.4)
+%indirizzi su cui scrivere per avere i dati
+GYRO_CONFIG = 0x1B;
+ACCEL_CONFIG = 0x1C;
+
+%acquisizione dati
+dev.write(GYRO_CONFIG, 0b00011000);
+dev.write(ACCEL_CONFIG, 0b00010000);
+
+[a, om, T] = leggivalues(dev, 8192/2, 16.4);

@@ -1,15 +1,6 @@
-function [acc, omega, T] = leggivalues(ACCEL_CONFIG_val, GYRO_CONFIG_val, dev, conva, convg)
+function [acc, omega, T] = leggivalues(dev, conva, convg)
 %LEGGIVALUES Summary of this function goes here
 %   Detailed explanation goes here
-
-%indirizzi su cui scrivere per avere i dati
-GYRO_CONFIG = 0x1B;
-ACCEL_CONFIG = 0x1C;
-
-%acquisizione dati
-dev.write(GYRO_CONFIG, GYRO_CONFIG_val);
-dev.write(ACCEL_CONFIG, ACCEL_CONFIG_val);
-
 %lettura dati
 ACCELHL = dev.read(0x3B, 6);
 GYROHL = dev.read(0x43, 6);
