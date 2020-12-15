@@ -1,4 +1,4 @@
-function [ax, ay, az, omx, omy, omz, T] = leggivalues(ACCEL_CONFIG_val, GYRO_CONFIG_val, dev, conva, convg)
+function [acc, omega, T] = leggivalues(ACCEL_CONFIG_val, GYRO_CONFIG_val, dev, conva, convg)
 %LEGGIVALUES Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -24,18 +24,12 @@ TEMP = comp2(TEMP);
 %conversione accelerazione a m/s^2:
 acc = ACCEL./conva; %a mano
 acc = acc .* 9.8;
-ax = acc(1);
-ay = acc(2);
-az = acc(3);
 
 %conversione temperatura a gradi:
 T = TEMP./340 + 36.53;
 
-%conversione velocità angolare in deg/s:
-omega = GYRO./convg;
-omx = omega(1);
-omy = omega(2);
-omz = omega(3);
+%conversione velocità angolare in rad/s:
+omega = (GYRO.*pi)./(180.*convg);
 end
 
 function [vett] = converti_vettore(bytes)
