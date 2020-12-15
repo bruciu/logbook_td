@@ -7,9 +7,16 @@ temperature = [];
 pulsazioni = [];
 tempo = [];
 
-[a, w, T] = leggivalues(dev, 8192/2, 16.4);
-tmp_a = a;
-tmp_w = w;
+as = [];
+ws = [];
+for i = 1:200
+    [a, w, T] = leggivalues(dev, 8192/2, 16.4);
+    as = [as, a];
+    ws = [ws, w];
+end
+
+tmp_a = mean(as, 2);
+tmp_w = mean(ws, 2);
 
 vel = [0; 0; 0];
 pos = [0; 0; 0];
