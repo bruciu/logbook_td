@@ -100,9 +100,9 @@ end
 
 function [vett] = converti_vettore(bytes)
     vett = [
-        unisci_bytes(bytes(1), bytes(2));
-        unisci_bytes(bytes(3), bytes(4));
-        unisci_bytes(bytes(5), bytes(6))
+        comp2(unisci_bytes(bytes(1), bytes(2)));
+        comp2(unisci_bytes(bytes(3), bytes(4)));
+        comp2(unisci_bytes(bytes(5), bytes(6)))
         ];
 end
 
