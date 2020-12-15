@@ -3,7 +3,7 @@ dev = I2Cdevice("com3", 0x68);
 
 %impostazioni iniziali:
 PWR_MGMT_1 = 0x6B;
-PWR_MGMT_1_val = 0b00010000;
+PWR_MGMT_1_val = 0b00000000;
 dev.write(PWR_MGMT_1, PWR_MGMT_1_val);
 
 SMPRT_DIV = 0x19;
