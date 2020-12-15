@@ -65,6 +65,8 @@ GYRO_YOUT_L_val = double(dev.read(GYRO_YOUT_L, 1));
 GYRO_ZOUT_H_val = double(dev.read(GYRO_ZOUT_H, 1));
 GYRO_ZOUT_L_val = double(dev.read(GYRO_ZOUT_L, 1));
 
+dev.read(GYRO_XOUT_H, 4)
+
 gXOUT = GYRO_XOUT_H_val .* 256 + GYRO_XOUT_L_val;
 gYOUT = GYRO_YOUT_H_val .* 256 + GYRO_YOUT_L_val;
 gZOUT = GYRO_ZOUT_H_val .* 256 + GYRO_ZOUT_L_val;
@@ -76,6 +78,37 @@ gZOUT = comp2(gZOUT);
 %conversioni
 omega = [gXOUT; gYOUT; gZOUT] / (8192/2)%%
 acc_uni = acc .* 9.8 ;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% prova
+% sto facendo delle fnzioni per farlo più compatto ma mi hanno chiamato
+% subito
+acc = leggi_valori(dev);
+acc = acc / (2^14)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUNZIONI
+
+function [acc, rot] = leggi_valori(dev)
+    ACCEL_XOUT_H = 0x3B;
+    GYRO_XOUT_H = 0x43;
+    
+    bytes = dev.read(ACCEL_XOUT_H, 6);
+    acc = converti_vettore(bytes);
+    
+    bytes = dev.read(GYRO_XOUT_H, 6);
+    rot = converti_vettore(bytes);
+end
+
+function [vett] = converti_vettore(bytes)
+    vett = [
+        unisci_bytes(bytes(1), bytes(2));
+        unisci_bytes(bytes(3), bytes(4));
+        unisci_bytes(bytes(5), bytes(6))
+        ];
+end
+
+function [val] = unisci_bytes(H, L)
+    val = double(H) * 256 + double(L);
+end
 
 function [val] = comp2(val)
     if val>2^15
