@@ -85,6 +85,19 @@ acc_uni = acc .* 9.8 ;
 acc = leggi_valori(dev);
 acc = acc / (2^14)
 
+cum = [0; 0; 0];
+for i = 1:1000
+    [acc, rot] = leggi_valori(dev);
+    cum = cum + rot;
+    rots(:, i) = cum;
+    
+    plot(rots(1, :));
+    hold on;
+    plot(rots(2, :));
+    plot(rots(3, :));
+    hold off;
+end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUNZIONI
 
 function [acc, rot] = leggi_valori(dev)
