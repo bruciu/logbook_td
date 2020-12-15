@@ -21,6 +21,6 @@ ylim([mean_y - range, mean_y + range]);
 zlim([mean_z - range, mean_z + range]);
 
 set(gcf,'Position',[100 100 800 800])
-
+grid()
 end
 
