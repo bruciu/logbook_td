@@ -50,7 +50,9 @@ plot(freqs, As.^2);
 set(gca, "XScale", 'log');
 set(gca, "YScale", 'log');
 
-
+grid();
+xlabel("frequenza [Hz]");
+ylabel("PSD");
 
 
 
