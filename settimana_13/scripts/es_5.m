@@ -52,7 +52,7 @@ set(gca, "YScale", 'log');
 
 grid();
 xlabel("frequenza [Hz]");
-ylabel("PSD");
+ylabel("PSD accelerazione x");
+xlim([min(freqs), max(freqs)])
 
-
-
+%save("Sere_es5_2", "tempo", "accelerazioni", "pulsazioni");
