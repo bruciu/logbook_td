@@ -29,13 +29,13 @@ dz = randn( size( s ) ) * noiseIntensity;
 x = x + dx;
 y = y + dy;
 z = z + dz;
-x = x(:);
-y = y(:);
-z = z(:);
+x = as(1,:)';
+y = as(2,:)';
+z = as(3,:)';
 fprintf( 'Simulated average data deviation: %.5f\n', sqrt( sum( dx(:).^2 + dy(:).^2 + dz(:).^2 ) / size( x, 1 ) ) );
 
 % do the fitting
-[ center, radii, evecs, v, chi2 ] = ellipsoid_fit( [ x y z ], '' );
+[ center, radii, evecs, v, chi2 ] = ellipsoid_fit( [ x y z ], '0' );
 fprintf( 'Ellipsoid center: %.5g %.5g %.5g\n', center );
 fprintf( 'Ellipsoid radii: %.5g %.5g %.5g\n', radii );
 fprintf( 'Ellipsoid evecs:\n' );

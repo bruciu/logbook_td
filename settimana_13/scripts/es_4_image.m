@@ -9,9 +9,9 @@ tempo = [];
 
 as = [];
 ws = [];
-for i = 1:100
+for i = 1:200
     if (mod(i, 20) == 0)
-        waitbar(i/100)
+        waitbar(i/200)
     end
     [a, w, T] = leggivalues(dev, 8192*2, 16.4);
     as = [as, a];
