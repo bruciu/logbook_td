@@ -24,11 +24,15 @@ CONFIG = 0x1A;
 CONFIG_val = 0b00000000; % no DLPF
 dev.write(CONFIG, CONFIG_val);
 
-N = 100;
+N = 1000;
 
 tic;
 prev_t = toc;
+wb = waitbar(0, "atendi...");
 for ii = 1:N
+    if (mod(ii, 20) == 0)
+        waitbar(ii/N, wb);
+    end
     tempo(ii) = toc; %secondi
     [a, w, T] = leggivalues(dev, 8192*2, 16.4);
     accelerazioni(:, ii) = a;
