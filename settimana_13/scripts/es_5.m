@@ -39,6 +39,7 @@ for ii = 1:N
     temperature(:, ii) = T;
     pulsazioni(:, ii) = w;
 end
+close(wb);
 
 [freqs, As] = myFFT(accelerazioni(1, :), (max(tempo)-min(tempo))/length(tempo));
 
