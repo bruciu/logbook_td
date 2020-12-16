@@ -55,4 +55,4 @@ xlabel("frequenza [Hz]");
 ylabel("PSD accelerazione x");
 xlim([min(freqs), max(freqs)])
 
-%save("Sere_es5_2", "tempo", "accelerazioni", "pulsazioni");
+%save("Sere_es5_2", "tempo", "accelerazioni", "pulsazioni", "temperature");
