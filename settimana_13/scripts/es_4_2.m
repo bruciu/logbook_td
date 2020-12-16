@@ -18,6 +18,10 @@ ACCEL_CONFIG = 0x1C;
 
 %acquisizione dati
 dev.write(GYRO_CONFIG, 0b00011000);
-dev.write(ACCEL_CONFIG, 0b00010000);
+dev.write(ACCEL_CONFIG, 0b00000000);
 
-[a, om, T] = leggivalues(dev, 8192/2, 16.4);
+CONFIG = 0x1A;
+CONFIG_val = 0b00000101; % no DLPF
+dev.write(CONFIG, CONFIG_val);
+
+[a, om, T] = leggivalues(dev, 8192*2, 16.4);
