@@ -18,6 +18,7 @@
 
 void setup() {
 
+	Serial.begin(2000000);
 
 	// initialize digital pin 13 as an output.
 	pinMode(LED_GREEN, OUTPUT);
