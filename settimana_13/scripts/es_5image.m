@@ -1,6 +1,6 @@
-load("Sere_es5_1");
+%load("Sere_es5_1");
 
-session = "Sere1";
+session = "luca_2";
 
 %figura accx
 image(accelerazioni(1, :), tempo, "Accelerazione x", "m/s^2");

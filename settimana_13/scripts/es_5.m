@@ -24,7 +24,7 @@ CONFIG = 0x1A;
 CONFIG_val = 0b00000000; % no DLPF
 dev.write(CONFIG, CONFIG_val);
 
-N = 1000;
+N = 10000;
 
 tic;
 prev_t = toc;
