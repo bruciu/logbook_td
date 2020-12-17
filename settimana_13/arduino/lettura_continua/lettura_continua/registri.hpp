@@ -47,8 +47,14 @@
 //   0: 
 #define GYRO_CONFIG   0x1B
 #define ACCEL_CONFIG  0x1C
+
+// imostazioni della FIFO
 #define FIFO_EN       0x23
+
+// dentro c'è abilita/disabilita FIFO
 #define USER_CTRL     0x6A
 
-
+#define FIFO_COUNT_H 0x72
+#define FIFO_COUNT_L 0x73
+#define FIFO_R_W     0x74
 

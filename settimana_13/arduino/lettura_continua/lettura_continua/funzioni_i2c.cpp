@@ -2,7 +2,12 @@
 // 
 // 
 
+#include "registri.hpp"
 #include "funzioni_i2c.h"
+
+#include "utils.h"
+
+
 const byte SAD = 0x68;
 
 ////////////////////////////////////////////////////////////////
@@ -65,3 +70,29 @@ void readBytes(byte SUB, byte* buff, byte count)
 
 	stopRead();
 }
+
+////////////////////////////////////////////////////////////////
+void FIFO_enable(void)
+{
+	setRegister(USER_CTRL, 0b01000000);
+}
+
+////////////////////////////////////////////////////////////////
+void FIFO_clear(void)
+{
+	setRegister(USER_CTRL, 0b01000100);
+}
+
+////////////////////////////////////////////////////////////////
+uint16_t FIFO_size(void)
+{
+	byte bytes[2];
+
+	readBytes(FIFO_COUNT_H, bytes, 2);
+
+	return unisci_bytes(bytes[1], bytes[2]);
+}
+
+
+
+
