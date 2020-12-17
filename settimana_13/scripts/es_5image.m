@@ -2,40 +2,46 @@
 
 session = "luca_2";
 
+session = "luca_veloce";
+
+accelerazioni = A(:, 1:3)';
+pulsazioni = A(:, 4:6)';
+tempo = tempi;
+
 %figura accx
 image(accelerazioni(1, :), tempo, "Accelerazione x", "m/s^2");
-name = 'tmp/Accelerazione_x_'+ session + '.png';
++name = 'tmp/es_5_'+session+'_acc_x_.png';
 saveas(gcf,name);
 
 %figura accy
 image(accelerazioni(2, :), tempo, "Accelerazione y", "m/s^2");
-name = 'tmp/Accelerazione_y_'+ session + '.png';
++name = 'tmp/es_5_'+session+'_acc_y_.png';
 saveas(gcf,name);
 
 %figura accz
 image(accelerazioni(3, :), tempo, "Accelerazione z", "m/s^2");
-name = 'tmp/Accelerazione_z_'+ session + '.png';
++name = 'tmp/es_5_'+session+'_acc_z_.png';
 saveas(gcf,name);
 
 %figura wx
 image(pulsazioni(1, :), tempo, "Velocità angolare x", "rad/s");
-name = 'tmp/wx'+ session + '.png';
++name = 'tmp/es_5_'+session+'_w_x_.png';
 saveas(gcf,name);
 
 %figura wy
 image(pulsazioni(2, :), tempo, "Velocità angolare y", "rad/s");
-name = 'tmp/wy'+ session + '.png';
++name = 'tmp/es_5_'+session+'_w_y_.png';
 saveas(gcf,name);
 
 %figura wx
 image(pulsazioni(3, :), tempo, "Velocità angolare z", "rad/s");
-name = 'tmp/wz'+ session + '.png';
++name = 'tmp/es_5_'+session+'_w_z_.png';
 saveas(gcf,name);
 
 %figura temperatura
-image(temperature, tempo, "Temperatura", "°C");
-name = 'tmp/temp'+ session + '.png';
-saveas(gcf,name);
+% image(temperature, tempo, "Temperatura", "°C");
+% name = 'tmp/temp'+ session + '.png';
+% saveas(gcf,name);
 
 
 function image(x, t, namey, unit)
