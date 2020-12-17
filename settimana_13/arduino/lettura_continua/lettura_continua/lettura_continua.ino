@@ -15,59 +15,85 @@
 
 #include "registri.hpp"
 #include "funzioni_i2c.h"
+#include "utils.h"
 
 void setup() {
 
-	Serial.begin(2000000);
+	SystemClock_Config();
 
-	//// initialize digital pin 13 as an output.
-	//pinMode(LED_GREEN, OUTPUT);
-	//
-	//
-	//// ================================
-	////       IMPOSTAZIONI SENSORE
-	//// ================================
-	//
-	//// RESET
-	//setRegister(PWR_MGMT_1, 0b10000000);
-	//
-	//// disabilita lo stand by (riattiva il sensore)
-	//setRegister(PWR_MGMT_1, 0b00000000);
-	//
-	//// imposta il div
-	//// TODO
-	//setRegister(SMPRT_DIV, 0x4F);
-	//
-	//// config, no DLFP
-	//setRegister(CONFIG, 0x00);
-	//
-	//// configurazione giroscopio (fondi scala)
-	//setRegister(GYRO_CONFIG, 0b00011000);
-	//
-	//// configurazione accelerometri (fondi scala)
-	//setRegister(ACCEL_CONFIG, 0b00010000);
-	//
-	//// imposta per mettere sulla FIFO giroscopio e accelerometro
-	//setRegister(FIFO_EN, 0b01111000);
-	//
-	//// attiva la FIFO
-	//FIFO_enable();
-	//FIFO_clear();
+	Serial.begin(2000000);
+	Wire.begin();
+	Wire.setClock(400000);
+
+	// initialize digital pin 13 as an output.
+	pinMode(LED_GREEN, OUTPUT);
+	
+	
+	// ================================
+	//       IMPOSTAZIONI SENSORE
+	// ================================
+	
+	// RESET
+	setRegister(PWR_MGMT_1, 0b10000000);
+	delay(1000);
+	
+	// disabilita lo stand by (riattiva il sensore)
+	setRegister(PWR_MGMT_1, 0b00000000);
+	
+	// imposta il div
+	// TODO
+	setRegister(SMPRT_DIV, 0x07);
+	
+	// config, no DLFP
+	setRegister(CONFIG, 0x00);
+	
+	// configurazione giroscopio (fondi scala)
+	setRegister(GYRO_CONFIG, 0b00011000);
+	
+	// configurazione accelerometri (fondi scala)
+	setRegister(ACCEL_CONFIG, 0b00010000);
+	
+	// imposta per mettere sulla FIFO giroscopio e accelerometro
+	setRegister(FIFO_EN, 0b01111000);
+	
+	// attiva la FIFO
+	FIFO_enable();
+	FIFO_clear();
 }
 
+byte data[12];
 
 void loop() {
-	
-	Wire.beginTransmission((byte)0x68);   // Comunicazione su SAD = 0x5D = 93
-	Wire.write((byte)0x75);               // partiamo da SUB = 0x28 + 0x80
-	Wire.endTransmission(false);           // Riavviamo su SAD in lettura...
-	Wire.requestFrom((byte)0x68, (byte)1);         // e richiediamo 5 bytes
+	auto t = micros();
 
-	while (Wire.available() == 0) delay(1);  // Attendiamo che risponda...
-	auto b = Wire.read();
-	Wire.endTransmission(true);
+	// aspetta che ci siano dati
+	while (FIFO_size() < 12);
 
-	Serial.println(b, BIN);
+	//Serial.println(micros() - t);
+
+	Serial.print(FIFO_size());
+	Serial.println();
+	readBytes(FIFO_R_W, data, 12);
+
+	//Serial.println(micros() - t);
+
+	int i = 0;
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	//Serial.print("\t");
+	Serial.print(FIFO_size());
+	Serial.println();
+
+	//Serial.println(micros() - t);
 }
 
 

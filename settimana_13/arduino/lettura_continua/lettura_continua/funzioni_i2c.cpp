@@ -32,7 +32,7 @@ inline void requestBytes(byte SUB, byte nVals)
 	Wire.write(SUB);
 	Wire.endTransmission(false);
 	Wire.requestFrom(SAD, nVals);
-	while (Wire.available() < nVals) delay(1);
+	while (Wire.available() == 0);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -89,10 +89,7 @@ uint16_t FIFO_size(void)
 {
 	byte bytes[2];
 
-	//readBytes(FIFO_COUNT_H, bytes, 2);
-
-	bytes[1] = readByte(FIFO_COUNT_H);
-	bytes[2] = readByte(FIFO_COUNT_L);
+	readBytes(FIFO_COUNT_H, bytes, 2);
 
 	return unisci_bytes(bytes[1], bytes[2]);
 }
