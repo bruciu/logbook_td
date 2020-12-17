@@ -17,6 +17,10 @@
 #include "funzioni_i2c.h"
 #include "utils.h"
 
+unsigned todo_count;
+auto t = millis();
+unsigned count = 0;
+
 void setup() {
 
 	SystemClock_Config();
@@ -59,38 +63,48 @@ void setup() {
 	// attiva la FIFO
 	FIFO_enable();
 	FIFO_clear();
+
+	todo_count = 0;
+	t = millis();
+	count = 0;
 }
 
 byte data[12];
 
 void loop() {
-	auto t = micros();
 
-	// aspetta che ci siano dati
-	while (FIFO_size() < 12);
+	if (todo_count == 0)
+	{
+		// aspetta che ci siano dati
+		while (FIFO_size() < 12);
+
+		todo_count = FIFO_size() / 12;
+	}
+	todo_count--;
 
 	//Serial.println(micros() - t);
 
-	Serial.print(FIFO_size());
-	Serial.println();
 	readBytes(FIFO_R_W, data, 12);
 
 	//Serial.println(micros() - t);
 
 	int i = 0;
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	//Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
-	//Serial.print("\t");
-	Serial.print(FIFO_size());
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+	Serial.print("\t");
+	Serial.print(todo_count);
+	Serial.print("\t");
+
+	Serial.print((millis() - t)/(float)(count++));
 	Serial.println();
 
 	//Serial.println(micros() - t);

@@ -89,7 +89,10 @@ uint16_t FIFO_size(void)
 {
 	byte bytes[2];
 
-	readBytes(FIFO_COUNT_H, bytes, 2);
+	//readBytes(FIFO_COUNT_H, bytes, 2);
+
+	bytes[1] = readByte(FIFO_COUNT_H);
+	bytes[2] = readByte(FIFO_COUNT_L);
 
 	return unisci_bytes(bytes[1], bytes[2]);
 }
