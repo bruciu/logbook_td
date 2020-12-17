@@ -4,12 +4,13 @@ function acquire(porta, fileName, Nmisure)
 
 % righe da saltare all'inizio
 nSkip = 10;
-sp = serialport(porta, 2000000);
 
 % file
 fileID = fopen(fileName,'w');
 
 wb = waitbar(0, "presa dati");
+
+sp = serialport(porta, 2000000);
 
 % nSkip
 for i = 1:nSkip
