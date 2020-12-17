@@ -18,7 +18,7 @@
 #include "utils.h"
 
 unsigned todo_count;
-auto t = millis();
+auto t = micros();
 unsigned count = 0;
 
 void setup() {
@@ -65,7 +65,7 @@ void setup() {
 	FIFO_clear();
 
 	todo_count = 0;
-	t = millis();
+	t = micros();
 	count = 0;
 }
 
@@ -100,14 +100,15 @@ void loop() {
 	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
 	Serial.print("\t");
 	Serial.print(unisci_bytes(data[i++], data[i++]), HEX);
+
+#ifdef PRINT_INFO
 	Serial.print("\t");
 	Serial.print(todo_count);
 	Serial.print("\t");
+	Serial.print((micros() - t) / (float)(count++));
+#endif // PRINT_INFO
 
-	Serial.print((millis() - t)/(float)(count++));
 	Serial.println();
-
-	//Serial.println(micros() - t);
 }
 
 
