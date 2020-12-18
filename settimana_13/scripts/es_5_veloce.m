@@ -1,6 +1,6 @@
 path = "tmp/";
 
-A  = letturahex('tmp/Sere_2_velocissima_6bw.txt', 2000.*pi./180, 8);
+A  = letturahex('tmp/test_elimina_100hz.txt', 2000.*pi./180, 8);
 
 
 accelerazioni = [];
@@ -18,6 +18,6 @@ pulsazioni(3,:) = A(:,6);
 % wy = A(:,1);
 % wz = A(:,1);
 
-tempo = 1e-3 .* ((1:numel(ax))-1); 
+tempi = 1e-3 .* ((1:numel(accelerazioni))-1); 
 
-save("dataSere_2_velocissima_6bw.mat", "accelerazioni", "pulsazioni", "tempo");
+%save("dataSere_2_velocissima_6bw.mat", "accelerazioni", "pulsazioni", "tempo");
