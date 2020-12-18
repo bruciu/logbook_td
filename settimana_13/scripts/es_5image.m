@@ -2,11 +2,7 @@
 
 session = "luca_2";
 
-session = "luca_veloce";
-
-accelerazioni = A(:, 1:3)';
-pulsazioni = A(:, 4:6)';
-tempo = tempi;
+session = "serena_veloce1";
 
 %figura accx
 image(accelerazioni(1, :), tempo, "Accelerazione x", "m/s^2");
