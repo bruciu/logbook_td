@@ -71,14 +71,28 @@ void setup() {
 
 byte data[12];
 
+// abilita per debug FIFO
+//#define PRINT_INFO
+
+// abilita per inserire una pause di debug
+//#define DEBUG_PAUSE
+
+
 void loop() {
 
 	if (todo_count == 0)
 	{
-		// aspetta che ci siano dati
-		while (FIFO_size() < 12);
+		uint16_t s = 0;
 
-		todo_count = FIFO_size() / 12;
+		// aspetta che ci siano dati
+		while ((s = FIFO_size()) < 12);
+
+		todo_count = s / 12;
+
+#ifdef DEBUG_PAUSE
+		delay(10);
+#endif // DEBUG_PAUSE
+
 	}
 	todo_count--;
 
@@ -105,7 +119,10 @@ void loop() {
 	Serial.print("\t");
 	Serial.print(todo_count);
 	Serial.print("\t");
-	Serial.print((micros() - t) / (float)(count++));
+
+	auto t2 = micros();
+	Serial.print(t2 - t);
+	t = t2;
 #endif // PRINT_INFO
 
 	Serial.println();
