@@ -1,6 +1,6 @@
 es_4_2;
 
-N = 100;
+N = 1000;
 
 accelerazioni = [];
 temperature = [];

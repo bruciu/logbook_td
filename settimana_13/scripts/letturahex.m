@@ -16,16 +16,21 @@ function [A] = letturahex(path, GFS, AFS)
 
 %A = readmatrix(path, 'OutputType', 'uint16', 'Delimiter', '\t', 'LineEnding', '\n')
 
-A = [];
+presetSize = 100000;
+A = zeros(presetSize, 6);
+counter = 0;
 
 fid=fopen(path);
 while ~feof(fid)
     riga = fgetl(fid);
     if numel(riga) < 35
-    riga = hex2dec(regexp(riga,'\t','split'));
-        A = [A; riga'];
+        counter = counter + 1;
+        riga = hex2dec(regexp(riga,'\t','split'));
+        A(counter, :) = riga';
     end
 end
+
+A = A(1:counter, :);
 
 for ii =1:6
     A(:, ii) = typecast(uint16(A(:, ii)),'int16');
