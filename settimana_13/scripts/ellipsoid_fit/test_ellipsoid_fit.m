@@ -29,9 +29,9 @@ dz = randn( size( s ) ) * noiseIntensity;
 x = x + dx;
 y = y + dy;
 z = z + dz;
-x = as(1,:)';
-y = as(2,:)';
-z = as(3,:)';
+x = acc(1, :)';
+y = acc(2, :)';
+z = acc(3, :)';
 fprintf( 'Simulated average data deviation: %.5f\n', sqrt( sum( dx(:).^2 + dy(:).^2 + dz(:).^2 ) / size( x, 1 ) ) );
 
 % do the fitting
