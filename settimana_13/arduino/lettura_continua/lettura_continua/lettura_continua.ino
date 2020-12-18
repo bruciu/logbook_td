@@ -52,7 +52,7 @@ void setup() {
 	setRegister(CONFIG, 0x00);
 	
 	// configurazione giroscopio (fondi scala)
-	setRegister(GYRO_CONFIG, 0b00011000);
+	setRegister(GYRO_CONFIG, 0b00000000);
 	
 	// configurazione accelerometri (fondi scala)
 	setRegister(ACCEL_CONFIG, 0b00010000);
