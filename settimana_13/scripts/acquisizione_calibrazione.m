@@ -18,6 +18,6 @@ fprintf("Acquisizione per la calibrazione giroscopio\n");
 fprintf("premi Enter per acquisire (durata stimata %f s)\n", Ngyro / 1000);
 pause
 
-acquire(porta, folder + "calib_acc_data.txt", Ngyro);
+acquire(porta, folder + "calib_gyro_data.txt", Ngyro);
 
 end
