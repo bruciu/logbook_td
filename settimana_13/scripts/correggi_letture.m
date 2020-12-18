@@ -1,4 +1,4 @@
-function [acc] = correggi_letture(calib_folder, Ain, GFS, AFS, plot_bool)
+function [acc, gyro] = correggi_letture(calib_folder, Ain, GFS, AFS, plot_bool)
 
 if (nargin < 5)
     plot_bool = false;
@@ -27,7 +27,7 @@ for i = 1:3
 end
 
 % come vettori colonna
-acc = A(:, 1:3)';
+acc = Ain(:, 1:3)';
 
 % correzione centro e scalatura
 for i = 1:3
@@ -38,6 +38,19 @@ end
 %           GIROSCOPIO
 % ================================
 
+% leggi dati calibrazione
+A = letturahex(calib_folder + "calib_gyro_data.txt", GFS, AFS);
+
+% trova media delle letture
+center(1) = mean(A(:, 4));
+center(2) = mean(A(:, 5));
+center(3) = mean(A(:, 6));
+
+gyro = Ain(:, 4:6)';
+% correzione centro
+for i = 1:3
+    gyro(i, :) = gyro(i, :) - center(i);
+end
 
 end
 

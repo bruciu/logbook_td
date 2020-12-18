@@ -1,7 +1,7 @@
 function acquisizione_calibrazione(porta, folder, Nacc, Ngyro)
 
 if (nargin < 3)
-    Nacc = 30000;
+    Nacc = 60000;
 end
 
 if (nargin < 4)
