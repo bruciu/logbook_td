@@ -1,7 +1,7 @@
 
-Ain = letturahex("tmp/track/data.txt", 250*pi/180, 2);
+Ain = letturahex("tmp/track/data2.txt", 250*pi/180, 2);
 
-[acc, gyro] = correggi_letture("tmp/track/", Ain, 250*pi/180, 2);
+[acc, gyro] = correggi_letture("tmp/track/2", Ain, 250*pi/180, 2);
 
 acc = 9.8.*acc;
 
@@ -56,9 +56,9 @@ for ii = 1:length(gyro(1,:))
         hold on
         plot3(pos(1,:), pos(2,:), pos(3,:));
         hold off;
-         xlim([-2 2].*2)
-         ylim([-2 2].*2)
-         zlim([-2 2].*2)
+         xlim([-2 2].*20)
+         ylim([-2 2].*20)
+         zlim([-2 2].*20)
         correggi_dimensioni
         pause(0.01);
     end
