@@ -55,7 +55,7 @@ void setup() {
 	setRegister(GYRO_CONFIG, 0b00000000);
 	
 	// configurazione accelerometri (fondi scala)
-	setRegister(ACCEL_CONFIG, 0b00010000);
+	setRegister(ACCEL_CONFIG, 0b00000000);
 	
 	// imposta per mettere sulla FIFO giroscopio e accelerometro
 	setRegister(FIFO_EN, 0b01111000);
@@ -127,5 +127,3 @@ void loop() {
 
 	Serial.println();
 }
-
-
