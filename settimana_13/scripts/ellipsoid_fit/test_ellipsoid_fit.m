@@ -47,9 +47,23 @@ fprintf( '\nAverage deviation of the fit: %.5f\n', sqrt( chi2 / size( x, 1 ) ) )
 fprintf( '\n' );
 
 % draw data
-figure,
+figure;
+subplot(1, 2, 1)
+plot3( x, y, z, '.-' );
+xlabel("acc x [g]")
+xlabel("acc y [g]")
+zlabel("acc z [g]")
+axis vis3d equal;
+view( -70, 40 );
+grid();
+
+subplot(1, 2, 2)
 plot3( x, y, z, '.r' );
+xlabel("acc x [g]")
+xlabel("acc y [g]")
+zlabel("acc z [g]")
 hold on;
+grid();
 
 %draw fit
 mind = min( [ x y z ] );

@@ -20,7 +20,9 @@ xlim([mean_x - range, mean_x + range]);
 ylim([mean_y - range, mean_y + range]);
 zlim([mean_z - range, mean_z + range]);
 
-set(gcf,'Position',[200 200 500 500])
+set(gcf,'Position',[200 200 800 800])
 grid()
+
+%axis vis3d equal;
 end
 
