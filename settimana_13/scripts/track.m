@@ -1,5 +1,5 @@
 
-Ain = letturahex("tmp/track/data.txt", 250*pi/180, 4);
+Ain = letturahex("tmp/track/data_ang.txt", 250*pi/180, 4);
 
 [acc, gyro] = correggi_letture("tmp/track/", Ain, 250*pi/180, 4);
 gyro = gyro - mean(gyro(:, 1:5000), 2);
@@ -55,7 +55,7 @@ for ii = 1:length(gyro(1,:))
     pos = [pos, curr_pos];
     
     curr_vel = curr_vel * exp(-1/(0.5*1000));
-    curr_pos = curr_pos * exp(-1/(0.5*1000));
+    curr_pos = curr_pos * exp(-1/(0.1*1000));
     
     if mod(ii, 20) == 0
         plot_pos_rot(curr_pos, quat2rotm(R(ii)), 0.05);

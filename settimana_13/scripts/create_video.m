@@ -2,7 +2,6 @@
 fps = 30;
 
 N = numel(acc(1, :));
-N = 10000;
 
 % ================================
 %     ROTAZIONE / accelerazione
@@ -12,8 +11,10 @@ figure;
 v = VideoWriter('tmp/rot', 'MPEG-4');
 open(v); 
 
+wb = waitbar(0, "rotazione");
 tmp = [-1.5, 1.5];
 for i = 1:floor(1000/fps):N
+    waitbar(i/N, wb);
     rot_mat = quat2rotm(R(i));
     plot_pos_rot([0; 0; 0], rot_mat, 1);
     hold on;
@@ -28,7 +29,7 @@ for i = 1:floor(1000/fps):N
     frame = getframe (gcf);
     writeVideo (v, frame);
 end
-
+close(wb);
 close(v);
 
 
@@ -43,8 +44,10 @@ xlabel("pos z [m]");
 v = VideoWriter('tmp/pos', 'MPEG-4');
 open(v); 
 
-tmp = [-1, 1]*0.2;
+wb = waitbar(0, "posizione");
+tmp = [-1, 1]*0.05;
 for i = 1:floor(1000/fps):N
+    waitbar(i/N, wb);
     rot_mat = quat2rotm(R(i));
     plot_pos_rot(pos(:, i), rot_mat, 0.05);
     hold on;
@@ -59,7 +62,7 @@ for i = 1:floor(1000/fps):N
     frame = getframe (gcf);
     writeVideo (v, frame);
 end
-
+close(wb);
 close(v);
 
 
