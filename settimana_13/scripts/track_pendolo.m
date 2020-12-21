@@ -19,6 +19,7 @@ figure;
 
 accworld = zeros(3, N);
 
+wb = waitbar(0, "rotazione");
 for ii = 1:length(gyro(1,:))
     norma = norm(gyro(:,ii));
     versor = gyro(:,ii)./norma;
@@ -30,6 +31,7 @@ for ii = 1:length(gyro(1,:))
     curr_accworld = rot_mat * acc(:, ii);
     accworld(:, ii) = curr_accworld;
     if mod(ii, 500) == 0
+        waitbar(ii/N, wb);
         plot_pos_rot([0;0;0], rot_mat, 1)
         hold on
         plot3([0, curr_accworld(1)], [0, curr_accworld(2)], [0, curr_accworld(3)]);
@@ -41,11 +43,13 @@ for ii = 1:length(gyro(1,:))
         pause(0.01);
     end
 end
+close(wb);
 
 curr_pos = [0; 0; 0];
 curr_vel = [0; 0; 0];
 pos = [];
 
+wb = waitbar(0, "posizione");
 acc_mean = mean(accworld(:, 1:2500), 2); 
 for ii = 1:length(gyro(1,:))
     
@@ -60,6 +64,7 @@ for ii = 1:length(gyro(1,:))
     curr_pos = curr_pos * exp(-1/(1*1000));
     
     if mod(ii, 20) == 0
+        waitbar(ii/N, wb);
         plot_pos_rot(curr_pos, quat2rotm(R(ii)), 0.05);
         hold on
         %plot3([0, accworld(1, ii)-acc_mean(1)]*10, [0, accworld(2, ii)-acc_mean(2)]*10, [0, accworld(3, ii)-acc_mean(3)]*10, 'r', "linewidth", 2);
@@ -73,6 +78,7 @@ for ii = 1:length(gyro(1,:))
         pause(0.01);
     end
 end
+close(wb);
 
 %hold off;
 
