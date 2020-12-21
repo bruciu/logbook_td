@@ -20,10 +20,10 @@ function plot_pos_rot(pos, rot_mat, scale)
     arr_y = pos + rot_mat* arr_y;
     arr_z = pos + rot_mat* arr_z;
     
-    plot3([pos(1), arr_x(1)], [pos(2), arr_x(2)], [pos(3), arr_x(3)], color_x);
+    plot3([pos(1), arr_x(1)], [pos(2), arr_x(2)], [pos(3), arr_x(3)], color_x, "linewidth", 3);
     hold on;
-    plot3([pos(1), arr_y(1)], [pos(2), arr_y(2)], [pos(3), arr_y(3)], color_y);
-    plot3([pos(1), arr_z(1)], [pos(2), arr_z(2)], [pos(3), arr_z(3)], color_z);
+    plot3([pos(1), arr_y(1)], [pos(2), arr_y(2)], [pos(3), arr_y(3)], color_y, "linewidth", 3);
+    plot3([pos(1), arr_z(1)], [pos(2), arr_z(2)], [pos(3), arr_z(3)], color_z, "linewidth", 3);
     hold off;
 end
 
