@@ -2,6 +2,7 @@ N = 10000;
 M = 20;
 
 mean_wy = [];
+dev_wy = [];
 %prima verso nord poi sud
 
 % for ii = 1:M
@@ -32,4 +33,7 @@ for ii = 1:M
 end
 plot(offs);
 theta = (180./pi).*acos(mean(offs)./(2.*0.00417)) - 90 %gradi
-dtheta = (180./pi).*sqrt(var(offs).*2./M)./(1 - (mean(offs)./(2.*0.00417)).^2)
+%dtheta = (180./pi).*sqrt(var(offs).*2./M)./(1 - (mean(offs)./(2.*0.00417)).^2)
+
+
+
