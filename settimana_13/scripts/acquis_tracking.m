@@ -1,5 +1,5 @@
 
-N = 20000;
+N = 5000;
 
 %acquisizione_calibrazione('COM3', "tmp/track/", 30000);
 
