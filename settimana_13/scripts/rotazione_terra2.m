@@ -58,4 +58,4 @@ hold off;
 plot(wy3 - wy4, 'd-');
 mean(wy3 - wy4);
 errore = sqrt(dw3.^2 + dw4.^2);
-dtheta = (180./pi).*sqrt(mean(errore).*2./M)./(1 - (mean(offs)./(2.*0.00417)).^2);
+dtheta = (180./pi).*sqrt(mean(errore).*2./M)./(1 - (mean(offs)./(2.*0.00417)).^2)
