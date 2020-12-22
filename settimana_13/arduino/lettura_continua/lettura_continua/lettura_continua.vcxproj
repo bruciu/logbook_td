@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
+    <RootNamespace>lettura_continua</RootNamespace>
+    <ProjectName>lettura_continua</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\lettura_continua;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\libraries\Wire\src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\libraries\SrcWrapper\src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\avr;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\variants\NUCLEO_L4R5ZI;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\LL;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\OpenAMP;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb\hid;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb\cdc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\STM32L4xx_HAL_Driver\Inc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\STM32L4xx_HAL_Driver\Src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\STM32L4xx;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\ST\STM32_USB_Device_Library\Core\Src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\open-amp\lib\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\libmetal\lib\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\virtual_driver;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\Core\Include\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\CMSIS\Device\ST\STM32L4xx\Include\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\gcc\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\DSP\Include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\avr;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\usb;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.lettura_continua.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>_VMDEBUG=1;STM32L4xx;ARDUINO=108010;ARDUINO_NUCLEO_L4R5ZI;ARDUINO_ARCH_STM32;STM32L4R5xx;HAL_UART_MODULE_ENABLED;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\lettura_continua;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\libraries\Wire\src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\libraries\SrcWrapper\src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\libraries\Wire\src\utility;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\avr;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\variants\NUCLEO_L4R5ZI;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\LL;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\OpenAMP;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb\hid;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino\stm32\usb\cdc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\STM32L4xx_HAL_Driver\Inc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\STM32L4xx_HAL_Driver\Src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\STM32L4xx;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\ST\STM32_USB_Device_Library\Core\Src;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\open-amp\lib\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\libmetal\lib\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Middlewares\OpenAMP\virtual_driver;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\Core\Include\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\CMSIS\Device\ST\STM32L4xx\Include\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\gcc\;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\DSP\Include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\1.9.0\system;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\avr;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\hardware\stm32\usb;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\CMSIS\include;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\5.5.1\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\instance;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;C:\Users\Luca\AppData\Local\arduino15\packages\STM32\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.lettura_continua.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>STM32L4xx;ARDUINO=108010;ARDUINO_NUCLEO_L4R5ZI;ARDUINO_ARCH_STM32;STM32L4R5xx;HAL_UART_MODULE_ENABLED;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="VisualMicro" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="lettura_continua.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="funzioni_i2c.h" />
+    <ClInclude Include="registri.hpp" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="__vm\.lettura_continua.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="funzioni_i2c.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties config.Debug.customdebug_STM32_Nucleo_144_debugger_type="universal" custom_STM32_Nucleo_144_opt="o3std" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
