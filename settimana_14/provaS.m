@@ -1,3 +1,4 @@
+
 clear all;
 
 % indirizzo del sensore
@@ -16,6 +17,8 @@ MEAS3_LSB = 0x05;
 MEAS4_MSB = 0x06;
 MEAS4_LSB = 0x07;
 
+N = 100;
+
 dev = I2Cdevice("com3", SAD);
 
 % impostiamo la configurazione delle letture da far fare,
@@ -23,10 +26,18 @@ dev = I2Cdevice("com3", SAD);
 scrivi_registro(dev, CONF_MEAS1, 0b0001110000000000);
 
 %impostiamo l'FDC, impostiamo solo la misura 1, non ripetuta a 100S/s
-scrivi_registro(dev, FDC_CONF,   0b0000010010000000);
+scrivi_registro(dev, FDC_CONF,   0b0000010110000000);
 
 %acquisizione
-A = leggi_misura(dev, 1)
+
+misure = [];
+for i = 1:N
+    misure = [misure, leggi_misura(dev, 1)];
+end
+plot(misure, '.-')
+
+media = mean(misure);
+dev = sqrt(var(misure)./N);
 
 % =============================== funzioni
 
@@ -62,6 +73,6 @@ function [val] = comp2(val)
 end
 
 function scrivi_registro(dev, SUB, valore)
-    bytes = [floor(valore / 2^8), mod(valore, 2^8)];
+    bytes = [floor(double(valore) / 2^8), mod(valore, 2^8)];
     dev.write(SUB, bytes);
 end
