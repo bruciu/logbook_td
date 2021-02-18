@@ -47,8 +47,8 @@ function [result] = leggi_misura(dev, n)
     
     % attendi che la misura sia pronta
     mask = 2^(4-n);
-    while (~bitand(leggi_registro(dev, 0x0C), mask))
-    end
+%     while (~bitand(leggi_registro(dev, 0x0C), mask))
+%     end
     
     MSB_result = leggi_registro(dev, SUB);
     LSB_result = leggi_registro(dev, SUB + 1);
