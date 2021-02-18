@@ -17,7 +17,7 @@ MEAS3_LSB = 0x05;
 MEAS4_MSB = 0x06;
 MEAS4_LSB = 0x07;
 
-N = 100;
+N = 1000;
 
 dev = I2Cdevice("com3", SAD);
 
@@ -47,9 +47,9 @@ function [result] = leggi_misura(dev, n)
     
     % attendi che la misura sia pronta
     mask = 2^(4-n);
-    while (~bitand(leggi_registro(dev, 0x0C), mask))
-    end
-    
+%     while (~bitand(leggi_registro(dev, 0x0C), mask))
+%     end
+%     
     MSB_result = leggi_registro(dev, SUB);
     LSB_result = leggi_registro(dev, SUB + 1);
     result = unisci_bytes(MSB_result*256, LSB_result);
