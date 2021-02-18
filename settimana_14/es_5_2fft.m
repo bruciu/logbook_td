@@ -1,53 +1,53 @@
-% 
-% clear all;
-% 
-% % indirizzo del sensore
-% SAD = 0b1010000; % = 80
-% CONF_MEAS1 = 0x08;
-% CONF_MEAS2 = 0x09;
-% CONF_MEAS3 = 0x0A;
-% CONF_MEAS4 = 0x0B;
-% FDC_CONF = 0x0C;
-% MEAS1_MSB = 0x00;
-% MEAS1_LSB = 0x01;
-% MEAS2_MSB = 0x02;
-% MEAS2_LSB = 0x03;
-% MEAS3_MSB = 0x04;
-% MEAS3_LSB = 0x05;
-% MEAS4_MSB = 0x06;
-% MEAS4_LSB = 0x07;
-% 
-% N = 1000;
-% 
-% dev = I2Cdevice("com3", SAD);
-% 
-% % impostiamo la configurazione delle letture da far fare,
-% % usiamo solo la configurazione 1
-% scrivi_registro(dev, CONF_MEAS1, 0b0001110000000000);
-% 
-% %impostiamo l'FDC, impostiamo solo la misura 1, ripetuta a 100S/s
-% scrivi_registro(dev, FDC_CONF,   0b0000010110000000);
-% 
-% %acquisizione
-% 
-% misure = [];
-% tic;
-% for i = 1:N
-%     misure = [misure, leggi_misura(dev, 1)];
-%     if i == N
-%     time = toc;
-%     end
-%     plot(misure, '.-')
-% end
-% 
-% t = linspace(0,N,N) .* (time/N);
-% 
-% plot(t, misure, '.-')
-% 
-% media = mean(misure);
-% dev = sqrt(var(misure)./N);
-% 
-% x = misure;
+
+clear all;
+
+% indirizzo del sensore
+SAD = 0b1010000; % = 80
+CONF_MEAS1 = 0x08;
+CONF_MEAS2 = 0x09;
+CONF_MEAS3 = 0x0A;
+CONF_MEAS4 = 0x0B;
+FDC_CONF = 0x0C;
+MEAS1_MSB = 0x00;
+MEAS1_LSB = 0x01;
+MEAS2_MSB = 0x02;
+MEAS2_LSB = 0x03;
+MEAS3_MSB = 0x04;
+MEAS3_LSB = 0x05;
+MEAS4_MSB = 0x06;
+MEAS4_LSB = 0x07;
+
+N = 1000;
+
+dev = I2Cdevice("com3", SAD);
+
+% impostiamo la configurazione delle letture da far fare,
+% usiamo solo la configurazione 1
+scrivi_registro(dev, CONF_MEAS1, 0b0001110000000000);
+
+%impostiamo l'FDC, impostiamo solo la misura 1, ripetuta a 100S/s
+scrivi_registro(dev, FDC_CONF,   0b0000010110000000);
+
+%acquisizione
+
+misure = [];
+tic;
+for i = 1:N
+    misure = [misure, leggi_misura(dev, 1)];
+    if i == N
+    time = toc;
+    end
+    plot(misure, '.-')
+end
+
+t = linspace(0,N,N) .* (time/N);
+
+plot(t, misure, '.-')
+
+media = mean(misure);
+dev = sqrt(var(misure)./N);
+
+x = misure;
 
 [freqs, As] = myFFT(x, (max(t)-min(t))/length(t));
     
