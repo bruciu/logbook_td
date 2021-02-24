@@ -2,10 +2,11 @@
 
 [T, V, I] = readiv("data/CIUBRU/bassa_corrente/CIUBRU01.txt");
 
-plot(V, I);
+plot(V, I, 'k.-');
 xlim([min(V) max(V)])
 ylim([min(I) max(I)])
-xlabel("d.d.p. [V]")
-ylabel('I [mA]')
-set(gca, 'YScale', 'log');
-set(gca, 'XScale', 'log');
+grid();
+xlabel("d.d.p. [V]",  'Interpreter', 'latex')
+ylabel('I [$\mu$A]', 'Interpreter', 'latex');
+% set(gca, 'YScale', 'log');
+% set(gca, 'XScale', 'log');
