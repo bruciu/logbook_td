@@ -1,4 +1,4 @@
-function [T, P, dP, chi2, chi2rid] = fit_folder_bassa(type, folder, bool_plot)
+function [T, P, dP, chi2, chi2rid, fNames] = fit_folder_bassa(type, folder, bool_plot)
 %FIT_FOLDER_BASSA Summary of this function goes here
 %   type  : - 'a' -> I = p1 * [exp(p2 * V) - 1]
 %           - 'b' -> I = p1 * [exp(p2 * V) - 1] + p3
@@ -14,7 +14,7 @@ P = [];
 dP = [];
 chi2 = [];
 chi2rid = [];
-
+fNames = [];
 
 % parametri iniziali e funzione di fit
 derf = @(A, B, C, G, x) A.*B.*exp(B.*x) + G;
@@ -41,6 +41,7 @@ for i = 1:numel(runs)
     V = run.V;
     I = run.I;
     T = [T; run.T'];
+    fNames = [fNames; string(run.name)];
     
     X0_tmp = X0;
     
