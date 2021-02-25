@@ -1,5 +1,5 @@
 
-[T, V, I] = readiv("data/CIUBRU/bassa_corrente/CIUBRU01.txt");
+[T, V, I] = readiv("data/CIUBRU/bassa_corrente/CIUBRU16.txt");
 
 x0 = [1e-11, 1./0.052, 0]; 
 f = @(A, B, C, x) A.*(exp(B.*x) - 1) + C;
@@ -15,7 +15,7 @@ fplot(@(V) f(coeffvals(1), coeffvals(2), coeffvals(3), V));
 hold on;
 
 plot(V, I, 'k.-');
-title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), (max(T) - min(T))/2),  'Interpreter', 'latex')
+title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), max(0.1, (max(T) - min(T))/2)),  'Interpreter', 'latex')
 xlim([min(V) max(V)])
 ylim([min(I) max(I)])
 grid();
@@ -43,7 +43,7 @@ plot(V, I, 'k.-');
 xlim([min(V) max(V)])
 ylim([min(I) max(I)])
 grid();
-title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), (max(T) - min(T))/2),  'Interpreter', 'latex')
+title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), max(0.1, (max(T) - min(T))/2)),  'Interpreter', 'latex')
 xlabel("d.d.p. [V]",  'Interpreter', 'latex')
 ylabel('I [$\mu$A]', 'Interpreter', 'latex');
 hold off;
@@ -67,7 +67,7 @@ hold on;
 
 %plot(V, I, 'k.');
 errorbar(V, I, 1./w, 'k.');
-title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), (max(T) - min(T))/2),  'Interpreter', 'latex')
+title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), max(0.1, (max(T) - min(T))/2)),  'Interpreter', 'latex')
 xlim([min(V) max(V)])
 ylim([min(I) max(I)])
 grid();
@@ -82,7 +82,7 @@ set(gca, 'YScale', 'log');
 fplot(@(V) f(coeffvals(1), coeffvals(2), coeffvals(3), coeffvals(4), V));
 hold on;
 errorbar(V, I, 1./w, 'k.');
-title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), (max(T) - min(T))/2),  'Interpreter', 'latex')
+title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), max(0.1, (max(T) - min(T))/2)),  'Interpreter', 'latex')
 xlim([min(V) max(V)])
 ylim([min(I) max(I)])
 grid();
