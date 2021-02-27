@@ -3,6 +3,7 @@ function [T, P, dP, chi2, chi2rid, fNames] = fit_folder_bassa(type, folder, bool
 %   type  : - 'a' -> I = p1 * [exp(p2 * V) - 1]
 %           - 'b' -> I = p1 * [exp(p2 * V) - 1] + p3
 %           - 'c' -> I = p1 * [exp(p2 * V) - 1] + p3 + p4 * V
+%           - 'd' -> I = p1 * [exp(p2 * V) - 1] + p3 + p4 * V + p5 * [exp(p2 * V / 2) - 1]
 %   folder: nome della cartella
 
 if nargin < 3
@@ -17,7 +18,7 @@ chi2rid = [];
 fNames = [];
 
 % parametri iniziali e funzione di fit
-derf = @(A, B, C, G, x) A.*B.*exp(B.*x) + G;
+derf = @(A, B, C, G, H, x) A.*B.*exp(B.*x) + G + H.*exp(B.*x/2).*B/2;
 if (type == 'a')
     X0 = [1e-11, 1./0.052];
     f = @(A, B, x) A.*(exp(B.*x) - 1);
@@ -29,6 +30,11 @@ end
 if (type == 'c')
     X0 = [1e-11, 1./0.052, 0, 0]; 
     f = @(A, B, C, G, x) A.*(exp(B.*x) - 1) + C + G.*x;
+end
+if (type == 'd')
+    
+    X0 = [1e-3, 1./0.052, 0, 0, 1];
+    f = @(A, B, C, G, H, x) A.*(exp(B.*x) - 1) + C + G.*x + H.*(exp(B.*x/2)-1);
 end
 
 fitfun = fittype(f);
@@ -50,8 +56,8 @@ for i = 1:numel(runs)
     for j = 1:3
         [fitted_curve,gof] = fit(run.V,run.I,fitfun,'StartPoint',X0_tmp, 'Weight', w);
         X0_tmp = coeffvalues(fitted_curve);
-        XX0 = [X0_tmp, zeros(1, 4 - numel(X0))];
-        w = 1./sqrt((derf(XX0(1), XX0(2), XX0(3), XX0(4), V).* 0.0001).^2 + (0.0004).^2);
+        XX0 = [X0_tmp, zeros(1, 5 - numel(X0))];
+        w = 1./sqrt((derf(XX0(1), XX0(2), XX0(3), XX0(4), XX0(5), V).* 0.0001).^2 + (0.0004).^2);
     end
     
     params = X0_tmp;
@@ -70,9 +76,12 @@ for i = 1:numel(runs)
     if type == 'c'
         tmp = f(params(1), params(2), params(3), params(4), V);
     end
+    if type == 'd'
+        tmp = f(params(1), params(2), params(3), params(4), params(5), V);
+    end
     
     CHI2 =  sum(((tmp - I).*w).^2);
-    CHI2rid = CHI2/(numel(V)-4);
+    CHI2rid = CHI2/(numel(V)-5);
     
     chi2 = [chi2; CHI2];
     chi2rid = [chi2rid; CHI2rid];
