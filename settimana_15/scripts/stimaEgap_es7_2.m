@@ -26,9 +26,8 @@ CHI2 =  sum((residui.*w).^2);
 CHI2rid = CHI2/(numel(residui)-2);
 
 hold on;
-Tmk = Tm + 273.15;
 %errorbar(Tmk, p, dp./2, dp./2, dTm/2, dTm/2, 'k.-');
-fplot(@(Tmk) f(params(1), params(2), Tmk));
+fplot(@(Tmk) f(params(1), params(2), Tm));
 %fplot(@(Tm) f(X0(1), X0(2), Tm));
 grid();
 xlabel("Temperatura [K]",  'Interpreter', 'latex')
