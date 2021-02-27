@@ -36,6 +36,11 @@ if (type == 'd')
     X0 = [1e-3, 1./0.052, 0, 0, 1];
     f = @(A, B, C, G, H, x) A.*(exp(B.*x) - 1) + C + G.*x + H.*(exp(B.*x/2)-1);
 end
+if (type == 'f')
+    X0 = [1e-3, 0, 0, 1e-6];
+    f = @(A, C, G, H, T, x) A.*(exp(1.1605e+04 .*x./T) - 1) + C + G.*x + H.*(exp(1.1605e+04 .*x./(2.*T))-1);
+    derf = @(A, C, G, H, T, x) A.*(1.1605e+04./T).*exp(1.1605e+04 .*x./T) + G + H.*exp(1.1605e+04 .*x./(2.*T)).*(1.1605e+04 ./(2.*T));
+end
 
 fitfun = fittype(f);
 
@@ -50,6 +55,12 @@ for i = 1:numel(runs)
     fNames = [fNames; string(run.name)];
     
     X0_tmp = X0;
+    if (type == 'f')
+        run.T
+        f = @(A, C, G, H, x)  A.*(exp(1.1605e+04 .*x./(mean(run.T)+273.15)) - 1) + C + G.*x + H.*(exp(1.1605e+04 .*x./(2.*(mean(run.T)+273.15)))-1);
+        fitfun = fittype(f);
+        derf = @(A, C, G, H, M, x) A.*(1.1605e+04./(mean(run.T)+273.15)).*exp(1.1605e+04 .*x./(mean(run.T)+273.15)) + G + H.*exp(1.1605e+04 .*x./(2.*(mean(run.T)+273.15))).*(1.1605e+04 ./(2.*(mean(run.T)+273.15)));
+    end
     
     w = 1 + V * 0;
     
@@ -78,6 +89,9 @@ for i = 1:numel(runs)
     end
     if type == 'd'
         tmp = f(params(1), params(2), params(3), params(4), params(5), V);
+    end
+    if type == 'f'
+        tmp = f(params(1), params(2), params(3), params(4), V);
     end
     
     CHI2 =  sum(((tmp - I).*w).^2);
