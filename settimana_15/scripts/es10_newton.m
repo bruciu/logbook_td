@@ -1,6 +1,6 @@
 
 % dati
-[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU50.txt");
+[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU65.txt");
 dV = V * 0 + 0.1e-3;
 dI = I * 0 + 0.4;
 
@@ -47,6 +47,7 @@ X0 = coeffvals;
 
 figure;
 subplot(3, 1, [1,2]);
+title(sprintf("Grafico I-V per T = %.1f $\\pm %.1f ^{\\circ} C $", mean(T), max(0.1, (max(T) - min(T))/2)),  'Interpreter', 'latex')
 hold on;
 errorbar(V, I, dI, dI, dV, dV, 'k.');
 xlim([min(V), max(V)]);
@@ -56,7 +57,7 @@ xlim(m_xlim);
 hold off;
 set(gca, 'YScale', 'log');
 grid();
-xlabel("tensione [V]");
+xlabel("tensione [V]", "Interpreter", "latex");
 ylabel("intensit\'a di corrente [$\mu A$]", "Interpreter", "latex");
 
 subplot(3, 1, 3);
@@ -67,8 +68,8 @@ xlim([min(V), max(V)]);
 fplot(@(x) x*0)
 hold off;
 grid();
-xlabel("tensione [V]");
-xlabel("residui normalizzati [$\sigma$]", "Interpreter", "latex");
+xlabel("tensione [V]", "Interpreter", "latex");
+ylabel("residui normalizzati [$\sigma$]", "Interpreter", "latex");
 
 params = X0;
 conf = confint(fitted_curve);
