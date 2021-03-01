@@ -19,7 +19,7 @@ w = 1.0 + V.*0;
 
 for ii = 1:4
     fitfun = fittype(f);
-    [fitted_curve,gof] = fit(I, V,fitfun,'StartPoint',x0, 'Weight', w);
+    [fitted_curve,gof] = fit(I, V,fitfun,'StartPoint',x0, 'Weight', w, 'Lower', [-Inf, -Inf, sqrt(eps)*2]);
     coeffvals = coeffvalues(fitted_curve);
     w = 1./sqrt((derf(coeffvals(1), coeffvals(2), coeffvals(3), V).* 0.0004).^2 + (0.0001).^2);
 end
