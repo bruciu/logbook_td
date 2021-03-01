@@ -1,7 +1,7 @@
 runs = read_folder("data/CIUBRU/bassa_corrente");
 
 semi_s = 0.015; %uampere
-mean_i = 0.4; %uampere
+mean_i = 40; %uampere
 
 t = []; 
 dt = [];
@@ -57,6 +57,11 @@ for ii = 1:numel(runs)
     V = [V; valuex];
     T = [T; T_tmp];
     dT = [dT; dT_tmp];
+%     
+%     plot(V_tmp, I_tmp);
+%     xline(V(end));
+%     yline(mean_i);
+%     pause(1);
 end
 
 
