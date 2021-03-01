@@ -6,18 +6,6 @@ Tm = mean(T,2);
 E = 1.602176634e-19;
 K = 1.380649e-23;
 
-x = Tm;
-y = P(:, 3);
-dx = sqrt(0.2.^2 + ((T(:, 2) - T(:, 1))/2).^2);
-dy = dP(:, 3);
-
-errorbar(x, y, dy, dy, dx, dx, 'k.-');
-
-grid();
-xlabel("Temperatura [K]",  'Interpreter', 'latex')
-ylabel('R [$\Omega$]', 'Interpreter', 'latex');
-
-return;
 f = @(eta, x) eta .* K./E .* x;
 derf = @(eta, x) eta .* K./E;
 fitfun = fittype(f);
