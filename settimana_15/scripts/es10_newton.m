@@ -1,6 +1,11 @@
 
 % dati
-[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU65.txt");
+[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU50.txt");
+
+selezionati = I > 1.37;
+V = V(selezionati);
+I = I(selezionati);
+
 dV = V * 0 + 0.1e-3;
 dI = I * 0 + 0.4;
 
