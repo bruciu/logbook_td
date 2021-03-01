@@ -1,4 +1,4 @@
-function [T, P, dP, chi2, chi2rid, fNames] = fit_folder_alta(folder, bool_plot)
+function [T, P, dP, chi2, chi2rid, fNames, Imin] = fit_folder_alta(folder, bool_plot)
 
 if nargin < 2
     bool_plot = false;
@@ -10,6 +10,7 @@ dP = [];
 chi2 = [];
 chi2rid = [];
 fNames = [];
+Imin = [];
 
 m_epsylon = sqrt(sqrt(eps));% doppia radice per avere numeri più grandi
 epsylon = @(x) abs(x) .* m_epsylon + m_epsylon;
@@ -34,6 +35,7 @@ for i = 1:numel(runs)
     V = run.V(selezionati);
     I = run.I(selezionati);
     T = [T; run.T'];
+    Imin = [Imin, min(run.I)];
     fNames = [fNames; string(run.name)];
     
     dV = V * 0 + 0.1e-3;
