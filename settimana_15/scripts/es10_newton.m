@@ -57,7 +57,7 @@ hold off;
 set(gca, 'YScale', 'log');
 grid();
 xlabel("tensione [V]");
-ylabel("intensità di corrente [$\mu A$]", "Interpreter", "latex");
+ylabel("intensit\'a di corrente [$\mu A$]", "Interpreter", "latex");
 
 subplot(3, 1, 3);
 hold on;
