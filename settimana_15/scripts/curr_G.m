@@ -1,5 +1,7 @@
 function [I] = curr_G(V, Is, nVt, R, G, Nstep)
 
+% G = G * 1e-6;
+
 if nargin < 6
     Nstep = 20;
 end
@@ -8,6 +10,7 @@ end
 I = curr(V, Is, nVt, R, Nstep);
 
 % resistenza in parallelo
-I = I + G .* R;
+I = I + G .* V;
+
 end
 

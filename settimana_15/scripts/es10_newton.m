@@ -1,6 +1,6 @@
 
 % dati
-[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU50.txt");
+[T, V, I] = readiv("data/CIUBRU/alta_corrente/CIUBRU55.txt");
 dV = V * 0 + 0.1e-3;
 dI = I * 0 + 0.4;
 
@@ -22,7 +22,7 @@ derf = @(Is, nVt, R, G, x)...
     epsylon(x);
 
 % parametri iniziali
-X0 = [1e-3, 0.05, 1, 0.2];
+X0 = [0.6e-3, 0.045, 1.95, 0.9];
 
 figure;
 hold on;
@@ -38,7 +38,7 @@ w = 1.0 + V.*0;
 for ii = 1:4
     fitfun = fittype(f);
     %[fitted_curve,gof] = fit(V, I,fitfun,'StartPoint',X0, 'Weight', w, 'Lower', [-Inf, -Inf, 0.1, 0], 'Upper', [Inf, Inf, 0.1, Inf]);
-    [fitted_curve,gof] = fit(V, I,fitfun,'StartPoint',X0, 'Weight', w, 'Lower', [-Inf, -Inf, sqrt(eps)*2, 0.0001]);
+    [fitted_curve,gof] = fit(V, I,fitfun,'StartPoint',X0, 'Weight', w, 'Lower',[-Inf, -Inf, sqrt(eps)*2, 0.0]);%, 'Upper', [Inf, Inf, Inf, 0]);
     coeffvals = coeffvalues(fitted_curve);
     w = 1./sqrt((derf(coeffvals(1), coeffvals(2), coeffvals(3), coeffvals(4), V)...
        .* dV(1)).^2 + (dI(1)).^2);
